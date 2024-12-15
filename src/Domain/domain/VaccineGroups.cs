@@ -1,29 +1,19 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.domain
 {
     public class VaccineGroups
     {
-        [Key]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int VaccineGroupId { get; set; }
 
-        [Display(Name = "Vaccine Group CVX Code")]
-        [Required(ErrorMessage = "Vaccine Group cvx code missing")]
         [MaxLength(5)]
         public required string VaccineGroupCvxCode { get; set; }
-
-        [Display(Name = "Vaccine Group Name")]
-        [Required(ErrorMessage = "Vaccine Group name missing")]
         [MaxLength(100)]
         public required string VaccineGroup { get; set; }
-
-        [Display(Name = "Vaccine Group Description")]
-        [Required(ErrorMessage = "Vaccine Group Description missing")]
         [MaxLength(500)]
         public string? VaccineGroupDescription { get; set; }
-
-        [Display(Name = "Vis Date")]
-        [Required(ErrorMessage = "Vis Date missing")]
         public required DateOnly VisDate { get; set; }
     }
 }
