@@ -2,7 +2,7 @@
 
 namespace Domain.domain
 {
-    public class VaccineProgram
+    public class VaccinePrograms
     {
         [Key]
         public int VaccineProgramId { get; set; }
@@ -10,7 +10,7 @@ namespace Domain.domain
         [Display(Name = "Vaccine Program")]
         [Required(ErrorMessage = "Missing Vaccine Program. Eg: Federal, State, Private, etc.")]
         [MaxLength(20)]
-        public required string VaccineProgramName { get; set; }
+        public required string VaccineProgram { get; set; }
 
         [Display(Name = "Vaccine Program Description")]
         [Required(AllowEmptyStrings = true)]

@@ -2,7 +2,7 @@
 
 namespace Domain.domain
 {
-    public class VaccineGroup
+    public class VaccineGroups
     {
         [Key]
         public int VaccineGroupId { get; set; }
@@ -15,7 +15,7 @@ namespace Domain.domain
         [Display(Name = "Vaccine Group Name")]
         [Required(ErrorMessage = "Vaccine Group name missing")]
         [MaxLength(100)]
-        public required string VaccineGroupName { get; set; }
+        public required string VaccineGroup { get; set; }
 
         [Display(Name = "Vaccine Group Description")]
         [Required(ErrorMessage = "Vaccine Group Description missing")]

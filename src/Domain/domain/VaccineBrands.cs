@@ -2,7 +2,7 @@
 
 namespace Domain.domain
 {
-    public class VaccineBrand
+    public class VaccineBrands
     {
         [Key]
         public int VaccindBrandId { get; set; }
@@ -15,7 +15,7 @@ namespace Domain.domain
         [Display(Name = "Vaccine Brand Name")]
         [Required(ErrorMessage = "Brand name missing")]
         [MaxLength(50)]
-        public required string VaccindBrandName { get; set; }
+        public required string VaccindBrand { get; set; }
 
         [Display(Name = "Vaccine Brand Manufacturer")]
         [Required(ErrorMessage = "Vaccine brand manufacturer missing")]
