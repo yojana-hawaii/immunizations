@@ -15,11 +15,31 @@ namespace Domain.CDC
          */
         [Key]
         public int CdcBarcodeLookupId { get; set; }
-        public string Description { get; set; }
-        public DateOnly EditionDate { get; set; }
-        public int VisFullyEncodedString { get; set; }
-        public int VisGdtiCode { get; set; }
-        public string EditionStatus { get; set; }
-        public DateOnly LateUpdateDate { get; set; }
+        
+        [Display(Name = "Vis Document Type Description")]
+        [Required(ErrorMessage = "Vis Document Type Description missing")]
+        [MaxLength(100)] 
+        public required string VisDocumentTypeDescription { get; set; }
+        
+        [Display(Name = "Edition Date")]
+        [Required(ErrorMessage = "Edition date missing")]
+        public required DateOnly EditionDate { get; set; }
+        
+        [Display(Name = "Vis Fully Encoded String")]
+        [Required(ErrorMessage = "Vis fully encoded string missing")]
+        public required int VisFullyEncodedString { get; set; }
+        
+        [Display(Name = "Vis GDTI Document Code")]
+        [Required(ErrorMessage = "Vis GDTI document code missing")]
+        public required int VisGdtiCode { get; set; }
+        
+        [Display(Name = "Edition Status")]
+        [Required(AllowEmptyStrings = true)]
+        [MaxLength(15)] 
+        public string? EditionStatus { get; set; }
+        
+        [Display(Name = "Last Update Date")]
+        [Required(ErrorMessage = "Last Update date missing")]
+        public required DateOnly LateUpdateDate { get; set; }
     }
 }

@@ -12,11 +12,33 @@ namespace Domain.CDC
         // pull from https://www2a.cdc.gov/vaccines/iis/iisstandards/downloads/mvx.txt
         [Key]
         public int CdcManufacturerId { get; set; }
-        public string MvxCode { get; set; }
-        public string ManufacturerName { get; set; }
-        public string ManufacturerNotes { get; set; }
-        public string ManufacturerStatus { get; set; }
-        public DateOnly LastUpdateDate { get; set; }
-        public int ManufacturerId { get; set; }
+        
+        [Display(Name = "MVX Code")]
+        [Required(ErrorMessage = "MVX Code missing")]
+        [MaxLength(5)] 
+        public required string MvxCode { get; set; }
+        
+        [Display(Name = "Manufacturer Name")]
+        [Required(ErrorMessage = "Manufacturer Name missing")]
+        [MaxLength(100)] 
+        public required string ManufacturerName { get; set; }
+        
+        [Display(Name = "Manufacturer Note")]
+        [Required(AllowEmptyStrings = true)]
+        [MaxLength(200)] 
+        public string? ManufacturerNotes { get; set; }
+        
+        [Display(Name = "Manufacturer Status")]
+        [Required(ErrorMessage = "Manufacturer status missing")]
+        [MaxLength(15)] 
+        public required string ManufacturerStatus { get; set; }
+        
+        [Display(Name = "Last Update Date")]
+        public required DateOnly LastUpdateDate { get; set; }
+        
+        [Display(Name = "Manufacturer ID")]
+        [Required(AllowEmptyStrings = true)]
+        [MaxLength(5)] 
+        public int? ManufacturerId { get; set; }
     }
 }
