@@ -4,9 +4,9 @@ using System.Reflection;
 
 namespace DbMigration.dbContext
 {
-    public class CdcDbContext : DbContext
+    public class TestCdcDbContext : DbContext
     {
-        public CdcDbContext(DbContextOptions<CdcDbContext> options) : base(options) {}
+        public TestCdcDbContext(DbContextOptions<TestCdcDbContext> options) : base(options) {}
 
         public DbSet<CdcCvx> CdcCvxes { get; set; }
         public DbSet<CdcCvxCpt> CdcCvxCpts { get; set; }
@@ -17,6 +17,7 @@ namespace DbMigration.dbContext
         public DbSet<CdcLookupBarcode> CdcLoopupBarcodes { get; set; }
         public DbSet<CdcManufacturer> CdcManufacturers { get; set; }
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //apply all fluent api configuratio to entity using reflection
@@ -25,3 +26,4 @@ namespace DbMigration.dbContext
 
 }
 }
+ 

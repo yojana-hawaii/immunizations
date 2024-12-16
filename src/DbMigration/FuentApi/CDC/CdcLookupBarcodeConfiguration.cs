@@ -8,7 +8,7 @@ namespace DbMigration.FuentApi.CDC
     {
         public void Configure(EntityTypeBuilder<CdcLookupBarcode> builder)
         {
-            builder.HasAlternateKey(c => c.VisFullyEncodedString);
+            builder.HasAlternateKey(c => c.VisFullyEncodedString).HasName("IX_encodedString");
 
         }
     }

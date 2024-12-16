@@ -8,7 +8,7 @@ namespace DbMigration.FuentApi.CDC
     {
         public void Configure(EntityTypeBuilder<CdcCvxCpt> builder)
         {
-            builder.HasAlternateKey(c => new[] { c.CdcCvxCode, c.CptCode }).HasName("IX_cvx_cpt");
+            builder.HasAlternateKey(c => new { c.CdcCvxCode, c.CptCode }).HasName("IX_cvx_cpt");
         }
     }
 }

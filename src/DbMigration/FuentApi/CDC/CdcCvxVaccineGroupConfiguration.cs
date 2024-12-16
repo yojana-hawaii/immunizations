@@ -8,7 +8,7 @@ namespace DbMigration.FuentApi.CDC
     {
         public void Configure(EntityTypeBuilder<CdcCvxVaccineGroup> builder)
         {
-            builder.HasIndex(c => new { c.CdcCvxCode, c.VaccineGroupCvxCode }).IsUnique();
+            builder.HasIndex(c => new { c.CdcCvxCode, c.VaccineGroupCvxCode }).IsUnique().HasDatabaseName("IX_cvx_groupcvx");
         }
     }
 }

@@ -8,7 +8,7 @@ namespace DbMigration.FuentApi.CDC
     {
         public void Configure(EntityTypeBuilder<CdcCvxManufacturer> builder)
         {
-            builder.HasIndex(c => new { c.CdcProductName, c.MvxCode, c.CdcCvxCode }).IsUnique();
+            builder.HasIndex(c => new { c.CdcProductName, c.MvxCode, c.CdcCvxCode }).IsUnique().HasDatabaseName("IX_name_mvx_cvx");
         }
     }
 }
