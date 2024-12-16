@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <Folder Include="FuentApi\Domain\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
   <PropertyGroup>
