@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.CDC
 {
@@ -12,8 +7,8 @@ namespace Domain.CDC
     {
         // pull from https://www2a.cdc.gov/vaccines/iis/iisstandards/downloads/mvx.txt
 
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int CdcManufacturerId { get; set; }
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.None)] // from downloaded file
+        public int ManufacturerId { get; set; }
         
         [MaxLength(5)] 
         public required string MvxCode { get; set; }
@@ -23,8 +18,6 @@ namespace Domain.CDC
         public string? ManufacturerNotes { get; set; }
         [MaxLength(15)] 
         public required string ManufacturerStatus { get; set; }
-        public required DateOnly LastUpdateDate { get; set; }
-        [MaxLength(5)] 
-        public int? ManufacturerId { get; set; }
+        public DateOnly LastUpdateDate { get; set; }
     }
 }
