@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.CDC
 {
@@ -22,9 +17,9 @@ namespace Domain.CDC
         [MaxLength(5)] 
         public required string CdcCvxCode { get; set; }
         [MaxLength(50)] 
-        public required string Manufacturer { get; set; }
+        public string? Manufacturer { get; set; }
         [MaxLength(5)] 
-        public required string MvxCode { get; set; }
+        public string? MvxCode { get; set; }
         [MaxLength(15)] 
         public required string MvxStatus { get; set; }
         [MaxLength(15)] 

@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.CDC
 {
-    public class CdcLoopupBarcode
+    public class CdcLookupBarcode
     {
         /* pull from https://www.cdc.gov/iis/code-sets/vis-barcode-lookup-table.html
          * txt and xml not working
@@ -21,11 +16,13 @@ namespace Domain.CDC
         
         [MaxLength(100)] 
         public required string VisDocumentTypeDescription { get; set; }
-        public required DateOnly EditionDate { get; set; }
-        public required int VisFullyEncodedString { get; set; }
-        public required int VisGdtiCode { get; set; }
+        public DateOnly EditionDate { get; set; }
+        [MaxLength(50)]
+        public required string VisFullyEncodedString { get; set; }
+        [MaxLength(50)]
+        public required string VisGdtiCode { get; set; }
         [MaxLength(15)] 
-        public string? EditionStatus { get; set; }
-        public required DateOnly LateUpdateDate { get; set; }
+        public required string EditionStatus { get; set; }
+        public DateOnly LateUpdateDate { get; set; }
     }
 }

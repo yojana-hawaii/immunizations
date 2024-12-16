@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.CDC
 {
@@ -21,11 +15,11 @@ namespace Domain.CDC
         [MaxLength(100)]
         public required string ShortDescription { get; set; }
         [MaxLength(500)]
-        public string? FullVaccineName { get; set; }
+        public required string FullVaccineName { get; set; }
         [MaxLength(500)]
         public string? Notes { get; set; }
         [MaxLength(15)]
         public required string VaccineStatus { get; set; }
-        public required DateOnly LastUpdatedDate { get; set; }
+        public  DateOnly LastUpdatedDate { get; set; }
     }
 }

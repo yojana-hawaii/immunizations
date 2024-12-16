@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.CDC
 {
@@ -25,6 +20,6 @@ namespace Domain.CDC
         public required string VaccineName { get; set; }
         [MaxLength(500)] 
         public string? Comments { get; set; }
-        public required DateOnly LateUpdatedDate { get; set; }
+        public DateOnly LateUpdatedDate { get; set; }
     }
 }
