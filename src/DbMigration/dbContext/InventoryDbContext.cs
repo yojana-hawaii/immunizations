@@ -4,9 +4,9 @@ using System.Reflection;
 
 namespace DbMigration.dbContext
 {
-    public class CdcDbContext : DbContext
+    public class InventoryDbContext : DbContext
     {
-        public CdcDbContext(DbContextOptions<CdcDbContext> options) : base(options) {}
+        public InventoryDbContext(DbContextOptions<InventoryDbContext> options) : base(options) {}
 
         public DbSet<CdcCvx> CdcCvxes { get; set; }
         public DbSet<CdcCvxCpt> CdcCvxCpts { get; set; }
