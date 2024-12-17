@@ -6,8 +6,5 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="domain\VaccingGroup.cs~RF3ef09c.TMP" />
-  </ItemGroup>
 
 </Project>
