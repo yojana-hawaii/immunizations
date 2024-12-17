@@ -5,12 +5,6 @@ namespace Domain.CDC
 {
     public class CdcLookupBarcode
     {
-        /* pull from https://www.cdc.gov/iis/code-sets/vis-barcode-lookup-table.html
-         * txt and xml not working
-         * pull excel file https://www.cdc.gov/iis/code-sets/downloads/vis-barcode-lookup-table.xlsx
-         */
-
-
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CdcBarcodeLookupId { get; set; }
         

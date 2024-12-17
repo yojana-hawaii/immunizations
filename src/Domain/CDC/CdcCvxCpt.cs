@@ -5,8 +5,6 @@ namespace Domain.CDC
 {
     public class CdcCvxCpt
     {
-        // pull from https://www2a.cdc.gov/vaccines/iis/iisstandards/downloads/cpt.txt
-
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CdcCvxCptId { get; set; }
         

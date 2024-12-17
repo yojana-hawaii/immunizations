@@ -5,7 +5,6 @@ namespace Domain.CDC
 {
     public class CdcCvxVis
     {
-        // pull from https://www2a.cdc.gov/vaccines/iis/iisstandards/downloads/cvx_vis.txt
 
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CdcVisId { get; set; }

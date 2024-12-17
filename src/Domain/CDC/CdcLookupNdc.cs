@@ -5,7 +5,6 @@ namespace Domain.CDC
 {
     public class CdcLookupNdc
     {
-        // pull from https://www2a.cdc.gov/vaccines/iis/iisstandards/downloads/NDC/get_all_ndc_display2.txt
 
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CdcLookupNdc10Id { get; set; }

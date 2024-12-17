@@ -5,8 +5,6 @@ namespace Domain.CDC
 {
     public class CdcCvxManufacturer
     {
-        // pull from https://www2a.cdc.gov/vaccines/iis/iisstandards/downloads/TRADENAME.txt
-
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CdcCvxManufacturerId { get; set; }
         

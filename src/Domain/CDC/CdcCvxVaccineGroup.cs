@@ -5,7 +5,6 @@ namespace Domain.CDC
 {
     public class CdcCvxVaccineGroup
     {
-        // pull from https://www2a.cdc.gov/vaccines/iis/iisstandards/downloads/VG.txt
 
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CdcCvxVaccineGroupId { get; set; }

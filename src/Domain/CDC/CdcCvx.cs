@@ -4,9 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Domain.CDC
 {
     public class CdcCvx
-    {
-        // pull from https://www2a.cdc.gov/vaccines/IIS/IISStandards/downloads/cvx.txt
-        
+    {   
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CdcCvxId { get; set; }
         
