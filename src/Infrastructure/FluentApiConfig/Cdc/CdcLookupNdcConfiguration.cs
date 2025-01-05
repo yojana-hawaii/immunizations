@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.FluentApiConfig;
+namespace Infrastructure.FluentApiConfig.Cdc;
 
 internal class CdcLookupNdcConfiguration : IEntityTypeConfiguration<CdcLookupNdc>
 {
