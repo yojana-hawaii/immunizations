@@ -1,6 +1,5 @@
 ﻿
 using Infrastructure.AppContext;
-using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repository.Cdc;
 

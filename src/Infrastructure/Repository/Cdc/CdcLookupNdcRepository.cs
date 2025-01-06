@@ -5,11 +5,11 @@ namespace Infrastructure.Repository.Cdc;
 
 public class CdcLookupNdcRepository : ICdcLookupNdc
 {
-    private readonly InventoryDbContext _dbContext;
+    private readonly InventoryDbContext _context;
 
     public CdcLookupNdcRepository(InventoryDbContext dbContext)
     {
-        _dbContext = dbContext;
+        _context = dbContext;
     }
 
     public IEnumerable<CdcLookupNdc> FetchAll()
@@ -19,7 +19,7 @@ public class CdcLookupNdcRepository : ICdcLookupNdc
 
     public IEnumerable<CdcLookupNdc> GetAll()
     {
-        return _dbContext.CdcLookupNdcs;
+        return _context.CdcLookupNdcs;
     }
 
     public CdcLookupNdc GetByCvxCode(string cvxCode)
@@ -29,7 +29,7 @@ public class CdcLookupNdcRepository : ICdcLookupNdc
             throw new ArgumentNullException(nameof(cvxCode)); 
         }
         
-        var _ndc = _dbContext.CdcLookupNdcs.FirstOrDefault(n => n.CdcCvxCode == cvxCode);
+        var _ndc = _context.CdcLookupNdcs.FirstOrDefault(n => n.CdcCvxCode == cvxCode);
         
         if (_ndc == null) 
         { 
