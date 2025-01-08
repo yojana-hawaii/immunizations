@@ -20,7 +20,7 @@ class InMemoryCdcCvxRepositoryTest : AppDbContextBase
         IEnumerable<CdcCvx> cvxes = _cvxObj.GetAll();
 
         Assert.IsNotNull(cvxes);
-        Assert.That(4, Is.EqualTo(cvxes.Count()));
+        Assert.That(cvxes.Count(), Is.EqualTo(4));
         CollectionAssert.AllItemsAreUnique(cvxes);
         CollectionAssert.AllItemsAreNotNull(cvxes);
 
@@ -29,6 +29,6 @@ class InMemoryCdcCvxRepositoryTest : AppDbContextBase
         Assert.That(cvxes.Count( c => c.CdcCvxCode == "345"), Is.EqualTo(1));
 
         var cdccvx = cvxes.FirstOrDefault(c => c.CdcCvxCode == "012");
-        Assert.That(cdccvx.FullVaccineName, Is.EqualTo("vaccine 012"));
+        Assert.That(cdccvx?.FullVaccineName, Is.EqualTo("vaccine 012"));
     }
 }
