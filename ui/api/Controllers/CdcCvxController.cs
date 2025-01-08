@@ -1,4 +1,5 @@
 ﻿using Application.Interface.Cdc;
+using Asp.Versioning;
 using Domain.Models.Cdc;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,8 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers
 {
-    [Route("api/[Controller]")]
+    [ApiVersion("1.0")]
     [ApiController]
+    [Route("api/v{version:apiVersion}/[Controller]")]
     public class CdcCvxController : ControllerBase
     {
         private readonly ICdcCvx _cdcCvx;
