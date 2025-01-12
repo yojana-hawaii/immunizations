@@ -18,5 +18,6 @@ public class CdcCvx
     public string? Notes { get; set; }
     [MaxLength(15)]
     public required string VaccineStatus { get; set; }
+    public bool NonVaccine { get; set; }
     public DateOnly LastUpdatedDate { get; set; }
 }

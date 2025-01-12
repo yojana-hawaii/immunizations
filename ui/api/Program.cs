@@ -21,6 +21,9 @@ builder.Services.AddControllers();
 //Minimal API 
 builder.Services.AddEndpointsApiExplorer();
 
+//http client
+builder.Services.AddHttpClient();
+
 
 //API Versioning
 builder.Services.AddApiVersioning(options =>

@@ -1,4 +1,6 @@
-﻿namespace Application.Interface.Cdc;
+﻿
+
+namespace Application.Interface.Cdc;
 
 public interface ICdcCvx
 {
@@ -8,8 +10,9 @@ public interface ICdcCvx
     /// https://www2a.cdc.gov/vaccines/IIS/IISStandards/downloads/cvx.txt
     /// </summary>
     /// <returns></returns>
-    IEnumerable<CdcCvx> FetchAll();
+    /// 
 
     IEnumerable<CdcCvx> GetAll();
     CdcCvx GetByCvxCode(string cvxCode);
+    void SaveChanges(List<string[]> data);
 }
