@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(InventoryDbContext))]
-    [Migration("20250105232439_initial")]
-    partial class initial
+    [Migration("20250112034058_Name Without All Lowercase")]
+    partial class NameWithoutAllLowercase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,6 +45,9 @@ namespace Infrastructure.Migrations
 
                     b.Property<DateOnly>("LastUpdatedDate")
                         .HasColumnType("date");
+
+                    b.Property<bool>("NonVaccine")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Notes")
                         .HasMaxLength(500)

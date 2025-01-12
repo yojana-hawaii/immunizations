@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class NameWithoutAllLowercase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -41,6 +41,7 @@ namespace Infrastructure.Migrations
                     FullVaccineName = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     Notes = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     VaccineStatus = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    NonVaccine = table.Column<bool>(type: "bit", nullable: false),
                     LastUpdatedDate = table.Column<DateOnly>(type: "date", nullable: false)
                 },
                 constraints: table =>

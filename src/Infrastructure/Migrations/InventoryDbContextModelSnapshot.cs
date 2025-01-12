@@ -43,6 +43,9 @@ namespace Infrastructure.Migrations
                     b.Property<DateOnly>("LastUpdatedDate")
                         .HasColumnType("date");
 
+                    b.Property<bool>("NonVaccine")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Notes")
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
