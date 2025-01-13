@@ -8,9 +8,9 @@
         /// https://www2a.cdc.gov/vaccines/iis/iisstandards/downloads/cpt.txt
         /// </summary>
         /// <returns></returns>
-        IEnumerable<CdcCvxCpt> FetchAll();
-
         IEnumerable<CdcCvxCpt> GetAll();
         CdcCvxCpt GetByCvxCode(string cvxCode);
+        void SaveChanges(List<string[]> data);
+
     }
 }

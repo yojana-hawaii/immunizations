@@ -4,6 +4,7 @@ using Infrastructure.AppContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(InventoryDbContext))]
-    partial class InventoryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250113022919_Increase size of cvs description")]
+    partial class Increasesizeofcvsdescription
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,7 +68,7 @@ namespace Infrastructure.Migrations
                     b.HasAlternateKey("CdcCvxCode")
                         .HasName("IX_cvx");
 
-                    b.ToTable("CdcCvxes", (string)null);
+                    b.ToTable("CdcCvxes");
                 });
 
             modelBuilder.Entity("Domain.Models.Cdc.CdcCvxCpt", b =>
@@ -96,8 +99,8 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("CptDescription")
                         .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("CvxDescription")
                         .IsRequired()
@@ -112,7 +115,7 @@ namespace Infrastructure.Migrations
                     b.HasAlternateKey("CdcCvxCode", "CptCode")
                         .HasName("IX_cvx_cpt");
 
-                    b.ToTable("CdcCvxCpts", (string)null);
+                    b.ToTable("CdcCvxCpts");
                 });
 
             modelBuilder.Entity("Domain.Models.Cdc.CdcCvxManufacturer", b =>
@@ -166,7 +169,7 @@ namespace Infrastructure.Migrations
                         .HasDatabaseName("IX_name_mvx_cvx")
                         .HasFilter("[MvxCode] IS NOT NULL");
 
-                    b.ToTable("CdcCvxManufacturers", (string)null);
+                    b.ToTable("CdcCvxManufacturers");
                 });
 
             modelBuilder.Entity("Domain.Models.Cdc.CdcCvxVaccineGroup", b =>
@@ -208,7 +211,7 @@ namespace Infrastructure.Migrations
                         .IsUnique()
                         .HasDatabaseName("IX_cvx_groupcvx");
 
-                    b.ToTable("CdcCvxVaccineGroups", (string)null);
+                    b.ToTable("CdcCvxVaccineGroups");
                 });
 
             modelBuilder.Entity("Domain.Models.Cdc.CdcCvxVis", b =>
@@ -250,7 +253,7 @@ namespace Infrastructure.Migrations
                         .IsUnique()
                         .HasDatabaseName("IX_cvx_visname_visdate");
 
-                    b.ToTable("CdcCvxVises", (string)null);
+                    b.ToTable("CdcCvxVises");
                 });
 
             modelBuilder.Entity("Domain.Models.Cdc.CdcLookupBarcode", b =>
@@ -292,7 +295,7 @@ namespace Infrastructure.Migrations
                     b.HasAlternateKey("VisFullyEncodedString")
                         .HasName("IX_encodedString");
 
-                    b.ToTable("CdcLoopupBarcodes", (string)null);
+                    b.ToTable("CdcLoopupBarcodes");
                 });
 
             modelBuilder.Entity("Domain.Models.Cdc.CdcLookupNdc", b =>
@@ -439,7 +442,7 @@ namespace Infrastructure.Migrations
                         .HasDatabaseName("IX_ndc11_ndc10_cvx_mvx")
                         .HasFilter("[SaleNdc10] IS NOT NULL");
 
-                    b.ToTable("CdcLookupNdcs", (string)null);
+                    b.ToTable("CdcLookupNdcs");
                 });
 
             modelBuilder.Entity("Domain.Models.Cdc.CdcManufacturer", b =>
@@ -473,7 +476,7 @@ namespace Infrastructure.Migrations
 
                     b.HasAlternateKey("MvxCode");
 
-                    b.ToTable("CdcManufacturers", (string)null);
+                    b.ToTable("CdcManufacturers");
                 });
 #pragma warning restore 612, 618
         }

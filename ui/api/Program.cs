@@ -39,6 +39,13 @@ builder.Services.AddSwaggerGen();
 
 //register interface with repository
 builder.Services.AddScoped<ICdcCvx, CdcCvxRepository>();
+builder.Services.AddScoped<ICdcCvxCpt, CdcCvxCptRepository>();
+builder.Services.AddScoped<ICdcCvxManufacturer, CdcCvxManufacturerRepository>();
+builder.Services.AddScoped<ICdcCvxVaccineGroup, CdcCvxVaccineGroupRepository>();
+builder.Services.AddScoped<ICdcCvxVis, CdcCvxVisRepository>();
+builder.Services.AddScoped<ICdcLookupBarcode, CdcLookupBarcodeRepository>();
+builder.Services.AddScoped<ICdcLookupNdc, CdcLookupNdcRepository>();
+builder.Services.AddScoped<ICdcManufacturer, CdcManufacturerRepository>();
 
 var app = builder.Build();
 

@@ -10,13 +10,16 @@ public class CdcCvxCpt
 
     [MaxLength(10)]
     public required string CptCode { get; set; }
-    [MaxLength(100)]
+    [MaxLength(500)]
     public required string CptDescription { get; set; }
     [MaxLength(5)]
     public required string CdcCvxCode { get; set; }
-    [MaxLength(100)]
-    public required string VaccineName { get; set; }
+    [MaxLength(500)]
+    public required string CvxDescription { get; set; }
     [MaxLength(500)]
     public string? Comments { get; set; }
     public DateOnly LateUpdatedDate { get; set; }
+
+    [MaxLength(20)]
+    public string? CptCodeId { get; set; }
 }
