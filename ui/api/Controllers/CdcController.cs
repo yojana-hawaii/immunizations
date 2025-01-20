@@ -24,7 +24,7 @@ public class CdcController : ControllerBase
 
     private readonly Dictionary<string, string> _uri = new Dictionary<string, string>()
     {
-        {"cdcCvxUrl",           "https://www2a.cdc.gov/vaccines/IIS/IISStandards/downloads/cvx.txt" },
+        {"cdcCvx",           "https://www2a.cdc.gov/vaccines/IIS/IISStandards/downloads/cvx.txt" },
         {"cdcCvxCpt",           "https://www2a.cdc.gov/vaccines/iis/iisstandards/downloads/cpt.txt" },
         {"cdcCvxManufacturer",  "https://www2a.cdc.gov/vaccines/iis/iisstandards/downloads/TRADENAME.txt" },
         {"cdcCvxVaccineGroup",  "https://www2a.cdc.gov/vaccines/iis/iisstandards/downloads/VG.txt" },
@@ -119,13 +119,17 @@ public class CdcController : ControllerBase
         try
         {
             var content = await client.GetStringAsync(url);
+
+            //
+
             var lines = content.Split('\n');
+            lines = lines.Distinct().ToArray();
 
             foreach (var line in lines)
             {
                 if (string.IsNullOrWhiteSpace(line)) 
                     continue;
-                
+
                 var delimited = line.Split('|').Select(d => d.Trim()).ToArray();
                 
                 data.Add(delimited);
@@ -136,7 +140,6 @@ public class CdcController : ControllerBase
         {
             ex.ToString();
         }
-
         return data;
     }
 

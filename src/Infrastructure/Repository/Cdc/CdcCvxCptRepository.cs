@@ -35,7 +35,7 @@ public class CdcCvxCptRepository : ICdcCvxCpt
             CvxDescription = d[3],
             CdcCvxCode = d[4],
             Comments = d[5],
-            LateUpdatedDate = DateOnly.Parse(d[6]),
+            LastUpdatedDate = DateOnly.Parse(d[6]),
             CptCodeId = string.IsNullOrWhiteSpace(d[7]) ? null : d[7]
         })
             .OrderBy(x => x.CptCode)
@@ -70,11 +70,11 @@ public class CdcCvxCptRepository : ICdcCvxCpt
 
         for (int i = 0; i < entities.Count; i++)
         {
-            if (entities[i].CptCode == newData[i].CptCode && entities[i].CdcCvxCode == newData[i].CdcCvxCode && entities[i].LateUpdatedDate != newData[i].LateUpdatedDate)
+            if (entities[i].CptCode == newData[i].CptCode && entities[i].CdcCvxCode == newData[i].CdcCvxCode && entities[i].LastUpdatedDate != newData[i].LastUpdatedDate)
             {
                 entities[i].CptDescription = newData[i].CptDescription;
                 entities[i].Comments = newData[i].Comments;
-                entities[i].LateUpdatedDate = newData[i].LateUpdatedDate;
+                entities[i].LastUpdatedDate = newData[i].LastUpdatedDate;
                 entities[i].CptCodeId = newData[i].CptCodeId;
                 changes.Add(entities[i]);
             }
