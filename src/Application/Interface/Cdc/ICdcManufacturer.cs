@@ -8,7 +8,8 @@ public interface ICdcManufacturer
     /// https://www2a.cdc.gov/vaccines/iis/iisstandards/downloads/mvx.txt
     /// </summary>
     /// <returns></returns>
-    IEnumerable<CdcManufacturer> FetchAll();
     IEnumerable<CdcManufacturer> GetAll();
     CdcManufacturer GetByMvxCode(string mvxCode);
+    void SaveChanges(List<string[]> data);
+
 }

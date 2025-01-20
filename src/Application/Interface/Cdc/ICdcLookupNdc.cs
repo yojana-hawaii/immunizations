@@ -8,7 +8,9 @@ public interface ICdcLookupNdc
     /// https://www2a.cdc.gov/vaccines/iis/iisstandards/downloads/NDC/get_all_ndc_display2.txt
     /// </summary>
     /// <returns></returns>
-    IEnumerable<CdcLookupNdc> FetchAll();
     IEnumerable<CdcLookupNdc> GetAll();
     CdcLookupNdc GetByCvxCode(string cvxCode);
+    void SaveChanges(List<string[]> data);
+
 }
+

@@ -8,7 +8,8 @@ public interface ICdcCvxVaccineGroup
     /// https://www2a.cdc.gov/vaccines/iis/iisstandards/downloads/VG.txt
     /// </summary>
     /// <returns></returns>
-    IEnumerable<CdcCvxVaccineGroup> FetchAll();
     IEnumerable<CdcCvxVaccineGroup> GetAll();
     CdcCvxVaccineGroup GetByCvxCode(string cvxCode);
+    void SaveChanges(List<string[]> data);
+
 }

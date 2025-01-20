@@ -8,9 +8,10 @@
         /// https://www2a.cdc.gov/vaccines/iis/iisstandards/downloads/TRADENAME.txt
         /// </summary>
         /// <returns></returns>
-        IEnumerable<CdcCvxManufacturer> FetchAll();
 
         IEnumerable<CdcCvxManufacturer> GetAll();
         CdcCvxManufacturer GetByCvxCode(string cvxCode);
+        void SaveChanges(List<string[]> data);
+
     }
 }

@@ -9,7 +9,8 @@ public interface ICdcLookupBarcode
     /// pull excel file https://www.cdc.gov/iis/code-sets/downloads/vis-barcode-lookup-table.
     /// </summary>
     /// <returns></returns>
-    IEnumerable<CdcLookupBarcode> FetchAll();
     IEnumerable<CdcLookupBarcode> GetAll();
     CdcLookupBarcode GetByCvxCode(string cvxCode);
+    void SaveChanges(List<string[]> data);
+
 }
