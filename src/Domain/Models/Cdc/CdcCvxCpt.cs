@@ -18,7 +18,7 @@ public class CdcCvxCpt
     public required string CvxDescription { get; set; }
     [MaxLength(500)]
     public string? Comments { get; set; }
-    public DateOnly LateUpdatedDate { get; set; }
+    public DateOnly LastUpdatedDate { get; set; }
 
     [MaxLength(20)]
     public string? CptCodeId { get; set; }
