@@ -1,5 +1,6 @@
 ﻿using Application.Interface.Cdc;
 using Asp.Versioning;
+using Domain.Models.Cdc;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 
@@ -53,10 +54,10 @@ public class CdcController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> FetchAllAsync()
     {
-        await FetchCdcCvxAsync();
-        await FetchCdcCvxCptAsync();
+        //await FetchCdcCvxAsync();
+        //await FetchCdcCvxCptAsync();
         //await FetchCdcCvxManufacturerAsync();
-        //await FetchCdcCvxVaccineGroupAsync();
+        await FetchCdcCvxVaccineGroupAsync();
         //await FetchCdcCvxVisAsync();
         //await FetchCdcBarcodeAsync();
         //await FetchCdcNdcAsync();
@@ -91,7 +92,16 @@ public class CdcController : ControllerBase
     private async Task FetchCdcCvxVaccineGroupAsync()
     {
         var _data = await DownloadCdcDataAsync(_uri["cdcCvxVaccineGroup"]);
-        _cdcCvxVaccineGroup.SaveChanges(_data);
+        IEnumerable<CdcCvxVaccineGroup> _vaccineGroup = _data.Select( d => new CdcCvxVaccineGroup()
+        {
+            ShortDescription = d[0],
+            CdcCvxCode = d[1],
+            VaccineStatus = d[2],
+            VaccineGroupName = d[3],
+            VaccineGroupCvxCode = d[4],
+        });
+
+        _cdcCvxVaccineGroup.SaveChanges(_vaccineGroup);
     }
 
     private async Task FetchCdcCvxManufacturerAsync()
