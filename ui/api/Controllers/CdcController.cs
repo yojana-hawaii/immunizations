@@ -3,6 +3,7 @@ using Asp.Versioning;
 using Domain.Models.Cdc;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace api.Controllers;
 
@@ -36,12 +37,12 @@ public class CdcController : ControllerBase
     };
 
 
-    public CdcController(IHttpClientFactory httpClientFactory, 
-                ICdcCvx cdcCvx, ICdcCvxCpt cdcCvxCpt, ICdcCvxManufacturer cdcCvxManufacturer, 
+    public CdcController(IHttpClientFactory httpClientFactory,
+                ICdcCvx cdcCvx, ICdcCvxCpt cdcCvxCpt, ICdcCvxManufacturer cdcCvxManufacturer,
                 ICdcCvxVaccineGroup cdcCvxVaccineGroup, ICdcCvxVis cdcCvxVis, ICdcLookupBarcode cdcLookupBarcode,
                 ICdcLookupNdc cdcLookupNdc, ICdcManufacturer cdcManufacturer)
     {
-        _httpClientFactory = httpClientFactory; 
+        _httpClientFactory = httpClientFactory;
         _cdcCvx = cdcCvx;
         _cdcCvxCpt = cdcCvxCpt;
         _cdcCvxManufacturer = cdcCvxManufacturer;
@@ -56,8 +57,8 @@ public class CdcController : ControllerBase
     {
         //await FetchCdcCvxAsync();
         //await FetchCdcCvxCptAsync();
-        //await FetchCdcCvxManufacturerAsync();
-        await FetchCdcCvxVaccineGroupAsync();
+        await FetchCdcCvxManufacturerAsync();
+        //await FetchCdcCvxVaccineGroupAsync();
         //await FetchCdcCvxVisAsync();
         //await FetchCdcBarcodeAsync();
         //await FetchCdcNdcAsync();
@@ -86,13 +87,22 @@ public class CdcController : ControllerBase
     private async Task FetchCdcCvxVisAsync()
     {
         var _data = await DownloadCdcDataAsync(_uri["CdcCvxVis"]);
-        _cdcCvxVis.SaveChanges(_data);
+        IEnumerable<CdcCvxVis> _vis = _data.Select(d => new CdcCvxVis()
+        {
+            CdcCvxCode = d[0],
+            CvxVaccineDescription = d[1],
+            VisFullyEncodedTextString = int.Parse(d[2]),
+            VisDocumentName = d[3],
+            VisEditionDate = DateOnly.Parse(d[4]),
+            VisEditionStatus = d[5]
+        });
+        _cdcCvxVis.SaveChanges(_vis);
     }
 
     private async Task FetchCdcCvxVaccineGroupAsync()
     {
         var _data = await DownloadCdcDataAsync(_uri["cdcCvxVaccineGroup"]);
-        IEnumerable<CdcCvxVaccineGroup> _vaccineGroup = _data.Select( d => new CdcCvxVaccineGroup()
+        IEnumerable<CdcCvxVaccineGroup> _vaccineGroup = _data.Select(d => new CdcCvxVaccineGroup()
         {
             ShortDescription = d[0],
             CdcCvxCode = d[1],
@@ -107,7 +117,19 @@ public class CdcController : ControllerBase
     private async Task FetchCdcCvxManufacturerAsync()
     {
         var _data = await DownloadCdcDataAsync(_uri["cdcCvxManufacturer"]);
-        _cdcCvxManufacturer.SaveChanges(_data);
+        IEnumerable<CdcCvxManufacturer> _mfr = _data.Select(d => new CdcCvxManufacturer()
+        {
+            CdcProductName = d[0],
+            ShortDescription = d[1],
+            CdcCvxCode = d[2],
+            Manufacturer = d[3],
+            MvxCode = d[4],
+            MvxStatus = d[5],
+            ProductNameStatus = d[6],
+            LastUpdatedDate = DateOnly.Parse(d[7]),
+        });
+
+        _cdcCvxManufacturer.SaveChanges(_mfr);
     }
 
     private async Task FetchCdcCvxCptAsync()
@@ -125,7 +147,7 @@ public class CdcController : ControllerBase
     private async Task<List<string[]>> DownloadCdcDataAsync(string url)
     {
         var data = new List<string[]>();
-        var client  = _httpClientFactory.CreateClient();
+        var client = _httpClientFactory.CreateClient();
         try
         {
             var content = await client.GetStringAsync(url);
@@ -137,11 +159,11 @@ public class CdcController : ControllerBase
 
             foreach (var line in lines)
             {
-                if (string.IsNullOrWhiteSpace(line)) 
+                if (string.IsNullOrWhiteSpace(line))
                     continue;
 
                 var delimited = line.Split('|').Select(d => d.Trim()).ToArray();
-                
+
                 data.Add(delimited);
 
             }

@@ -11,7 +11,7 @@
 
         IEnumerable<CdcCvxManufacturer> GetAll();
         CdcCvxManufacturer GetByCvxCode(string cvxCode);
-        void SaveChanges(List<string[]> data);
+        void SaveChanges(IEnumerable<CdcCvxManufacturer> fetchedManufacturers);
 
     }
 }

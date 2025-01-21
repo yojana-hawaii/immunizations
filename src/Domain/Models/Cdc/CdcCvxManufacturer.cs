@@ -8,13 +8,13 @@ public class CdcCvxManufacturer
     [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int CdcCvxManufacturerId { get; set; }
 
-    [MaxLength(50)]
+    [MaxLength(100)]
     public required string CdcProductName { get; set; }
     [MaxLength(100)]
     public required string ShortDescription { get; set; }
     [MaxLength(5)]
     public required string CdcCvxCode { get; set; }
-    [MaxLength(50)]
+    [MaxLength(100)]
     public string? Manufacturer { get; set; }
     [MaxLength(5)]
     public string? MvxCode { get; set; }
