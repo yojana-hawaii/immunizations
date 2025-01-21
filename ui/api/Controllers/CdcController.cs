@@ -3,7 +3,6 @@ using Asp.Versioning;
 using Domain.Models.Cdc;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace api.Controllers;
 
@@ -55,11 +54,11 @@ public class CdcController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> FetchAllAsync()
     {
-        //await FetchCdcCvxAsync();
-        //await FetchCdcCvxCptAsync();
+        await FetchCdcCvxAsync();
+        await FetchCdcCvxCptAsync();
         await FetchCdcCvxManufacturerAsync();
-        //await FetchCdcCvxVaccineGroupAsync();
-        //await FetchCdcCvxVisAsync();
+        await FetchCdcCvxVaccineGroupAsync();
+        await FetchCdcCvxVisAsync();
         //await FetchCdcBarcodeAsync();
         //await FetchCdcNdcAsync();
         //await FetchCdcManufacturerAsync();
@@ -91,9 +90,9 @@ public class CdcController : ControllerBase
         {
             CdcCvxCode = d[0],
             CvxVaccineDescription = d[1],
-            VisFullyEncodedTextString = int.Parse(d[2]),
+            VisFullyEncodedTextString = d[2],
             VisDocumentName = d[3],
-            VisEditionDate = DateOnly.Parse(d[4]),
+            VisEditionDate = DateOnly.FromDateTime(DateTime.Parse(d[4])),
             VisEditionStatus = d[5]
         });
         _cdcCvxVis.SaveChanges(_vis);

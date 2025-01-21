@@ -10,6 +10,6 @@ public interface ICdcCvxVis
     /// <returns></returns>
     IEnumerable<CdcCvxVis> GetAll();
     CdcCvxVis GetByCvxCode(string cvxCode);
-    void SaveChanges(List<string[]> data);
+    void SaveChanges(IEnumerable<CdcCvxVis> fetchedVis);
 
 }
