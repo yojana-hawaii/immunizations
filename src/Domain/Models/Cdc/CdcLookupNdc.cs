@@ -46,7 +46,7 @@ public class CdcLookupNdc : IEquatable<CdcLookupNdc>
     public required string CvxLongDescription { get; set; }
     [MaxLength(5)]
     public required string CvxStatus { get; set; }
-    public DateOnly? CvxEddectiveDate { get; set; }
+    public DateOnly? CvxEffectiveDate { get; set; }
     public DateOnly? CvxRetiredDate { get; set; }
     [MaxLength(20)]
     public required string MvxCode { get; set; }

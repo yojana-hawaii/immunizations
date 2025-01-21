@@ -10,7 +10,7 @@ public interface ICdcLookupNdc
     /// <returns></returns>
     IEnumerable<CdcLookupNdc> GetAll();
     CdcLookupNdc GetByCvxCode(string cvxCode);
-    void SaveChanges(List<string[]> data);
+    void SaveChanges(IEnumerable<CdcLookupNdc> fetchedNdc);
 
 }
 

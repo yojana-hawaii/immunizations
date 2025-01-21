@@ -10,6 +10,6 @@ public interface ICdcManufacturer
     /// <returns></returns>
     IEnumerable<CdcManufacturer> GetAll();
     CdcManufacturer GetByMvxCode(string mvxCode);
-    void SaveChanges(List<string[]> data);
+    void SaveChanges(IEnumerable<CdcManufacturer> fetchedManudacturer);
 
 }
