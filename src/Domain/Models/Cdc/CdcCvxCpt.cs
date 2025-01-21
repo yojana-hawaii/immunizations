@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Models.Cdc;
 
-public class CdcCvxCpt
+public class CdcCvxCpt : IEquatable<CdcCvxCpt>
 {
     [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int CdcCvxCptId { get; set; }
@@ -22,4 +22,16 @@ public class CdcCvxCpt
 
     [MaxLength(20)]
     public string? CptCodeId { get; set; }
+
+    public bool Equals(CdcCvxCpt? other)
+    {
+        if (other is null) return false;
+        if(ReferenceEquals(null, other)) return false;
+        return this.CdcCvxCode == other.CdcCvxCode && this.CptCode == other.CptCode;
+    }
+    public override bool Equals(object? obj) => Equals(obj as CdcCvxCpt);
+    public override int GetHashCode()
+    {
+        return (CdcCvxCode, CptCode).GetHashCode();
+    }
 }

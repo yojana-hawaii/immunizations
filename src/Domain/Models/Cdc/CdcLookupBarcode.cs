@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Models.Cdc;
 
-public class CdcLookupBarcode
+public class CdcLookupBarcode : IEquatable<CdcLookupBarcode>
 {
     [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int CdcBarcodeLookupId { get; set; }
@@ -18,4 +18,15 @@ public class CdcLookupBarcode
     [MaxLength(15)]
     public required string EditionStatus { get; set; }
     public DateOnly LateUpdateDate { get; set; }
+
+    public bool Equals(CdcLookupBarcode? other)
+    {
+        if(other is null) return false; 
+        if(ReferenceEquals(this, other)) return true;
+        return this.VisFullyEncodedString == VisFullyEncodedString;
+    }
+
+    public override bool Equals(object? obj) => Equals(obj as CdcLookupBarcode);
+    public override int GetHashCode() => VisFullyEncodedString.GetHashCode();
+
 }

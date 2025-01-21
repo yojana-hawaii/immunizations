@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Models.Cdc;
 
-public class CdcLookupNdc
+public class CdcLookupNdc : IEquatable<CdcLookupNdc>
 {
     [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int CdcLookupNdc10Id { get; set; }
@@ -62,4 +62,16 @@ public class CdcLookupNdc
     public string? CptLongDescription { get; set; }
     [MaxLength(15)]
     public string? CptStatus { get; set; }
+
+    public bool Equals(CdcLookupNdc? other)
+    {
+        if (other is null) return false;
+        if(ReferenceEquals(other, this)) return true;
+
+        return this.SaleNdc10 == other.SaleNdc10 && this.SaleNdc11 == other.SaleNdc11
+                && this.UseNdc10 == other.UseNdc10 && this.UseNdc11 == other.UseNdc11
+                && this.CdcCvxCode == other.CdcCvxCode && this.MvxCode == other.MvxCode;
+    }
+    public override bool Equals(object? obj) => Equals(obj as CdcLookupNdc);
+    public override int GetHashCode() => (SaleNdc10, SaleNdc11, UseNdc10, UseNdc11, CdcCvxCode, MvxCode).GetHashCode();
 }

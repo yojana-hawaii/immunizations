@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Models.Cdc;
 
-public class CdcCvx
+public class CdcCvx : IEquatable<CdcCvx>
 {
     [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int CdcCvxId { get; set; }
@@ -20,4 +20,15 @@ public class CdcCvx
     public required string VaccineStatus { get; set; }
     public bool NonVaccine { get; set; }
     public DateOnly LastUpdatedDate { get; set; }
+
+    public bool Equals(CdcCvx? other)
+    {
+        if (other is null) return false;
+        if (ReferenceEquals(this, other)) return true;
+
+        return this.CdcCvxCode == other.CdcCvxCode;
+    }
+
+    public override bool Equals(object? obj) => Equals(obj as CdcCvx);
+    public override int GetHashCode() => (CdcCvxCode).GetHashCode();
 }

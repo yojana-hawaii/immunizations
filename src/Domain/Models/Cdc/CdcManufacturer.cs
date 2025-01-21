@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Models.Cdc;
 
-public class CdcManufacturer
+public class CdcManufacturer : IEquatable<CdcManufacturer>
 {
     [Key, DatabaseGenerated(DatabaseGeneratedOption.None)] // from downloaded file
     public int ManufacturerId { get; set; }
@@ -17,4 +17,13 @@ public class CdcManufacturer
     [MaxLength(15)]
     public required string ManufacturerStatus { get; set; }
     public DateOnly LastUpdateDate { get; set; }
+
+    public bool Equals(CdcManufacturer? other)
+    {
+        if (other is null) return false;
+        if(ReferenceEquals(this, other)) return true;
+        return this.MvxCode == other.MvxCode;
+    }
+    public override bool Equals(object? obj) => Equals(obj as CdcManufacturer);
+    public override int GetHashCode() => MvxCode.GetHashCode();
 }
