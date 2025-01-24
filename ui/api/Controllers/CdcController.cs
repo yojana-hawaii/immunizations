@@ -240,7 +240,7 @@ public class CdcController : ControllerBase
                 if (string.IsNullOrWhiteSpace(line))
                     continue;
 
-                var delimited = line.Split('|').Select(d => d.Trim()).ToArray();
+                var delimited = line.Split('|').Select(d => d.Trim().Replace(@"""", @"\""")).ToArray();
 
                 data.Add(delimited);
 
