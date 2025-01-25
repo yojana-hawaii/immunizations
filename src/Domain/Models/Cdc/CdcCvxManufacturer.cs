@@ -23,4 +23,9 @@ public class CdcCvxManufacturer
     [MaxLength(15)]
     public required string ProductNameStatus { get; set; }
     public required DateOnly LastUpdatedDate { get; set; }
+
+    public static bool CdcFetchComparer(CdcCvxManufacturer item, CdcCvxManufacturer other)
+    {
+        return item.LastUpdatedDate == other.LastUpdatedDate;
+    }
 }

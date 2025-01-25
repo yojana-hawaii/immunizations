@@ -21,6 +21,11 @@ public class CdcCvx : IEquatable<CdcCvx>
     public bool NonVaccine { get; set; }
     public DateOnly LastUpdatedDate { get; set; }
 
+    public static bool CdcFetchComparer(CdcCvx item, CdcCvx other)
+    {
+        return item.LastUpdatedDate == other.LastUpdatedDate;
+    }
+
     public bool Equals(CdcCvx? other)
     {
         if (other is null) return false;

@@ -17,8 +17,14 @@ public class CdcLookupBarcode : IEquatable<CdcLookupBarcode>
     public required string VisGdtiCode { get; set; }
     [MaxLength(15)]
     public required string EditionStatus { get; set; }
-    public DateOnly LateUpdateDate { get; set; }
+    public DateOnly LateUpdatedDate { get; set; }
 
+
+
+    public static bool CdcFetchComparer(CdcLookupBarcode item, CdcLookupBarcode other)
+    {
+        return item.LateUpdatedDate == other.LateUpdatedDate;
+    }
     public bool Equals(CdcLookupBarcode? other)
     {
         if(other is null) return false; 

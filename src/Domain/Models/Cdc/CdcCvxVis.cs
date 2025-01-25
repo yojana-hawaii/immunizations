@@ -23,6 +23,11 @@ public class CdcCvxVis : IEquatable<CdcCvxVis>
 
 
 
+    public static bool CdcFetchComparer(CdcCvxVis item, CdcCvxVis other)
+    {
+        return item.VisEditionStatus == other.VisEditionStatus;
+    }
+
     public bool Equals(CdcCvxVis? other)
     {
         if (other is null) return false;

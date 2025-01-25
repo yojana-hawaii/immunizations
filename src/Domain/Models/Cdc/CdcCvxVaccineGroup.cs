@@ -21,6 +21,10 @@ public class CdcCvxVaccineGroup : IEquatable<CdcCvxVaccineGroup>
 
 
 
+    public static bool CdcFetchComparer(CdcCvxVaccineGroup item, CdcCvxVaccineGroup other)
+    {
+        return item.VaccineStatus == other.VaccineStatus && item.VaccineGroupName == other.VaccineGroupName;
+    }
 
     public bool Equals(CdcCvxVaccineGroup? other)
     {

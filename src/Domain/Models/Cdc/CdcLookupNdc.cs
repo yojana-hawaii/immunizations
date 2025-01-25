@@ -28,7 +28,7 @@ public class CdcLookupNdc : IEquatable<CdcLookupNdc>
     public DateOnly? SaleEndDate { get; set; }
     [MaxLength(50)]
     public string? SaleGtin { get; set; }
-    public DateOnly SaleLastUpdate { get; set; }
+    public DateOnly SaleLastUpdated { get; set; }
     [MaxLength(50)]
     public string? VaccineSeason { get; set; }
     [MaxLength(50)]
@@ -37,7 +37,7 @@ public class CdcLookupNdc : IEquatable<CdcLookupNdc>
     public DateOnly? UseEndDate { get; set; }
     [MaxLength(50)]
     public string? UseGtin { get; set; }
-    public DateOnly UserLastUpdate { get; set; }
+    public DateOnly UserLastUpdated { get; set; }
     [MaxLength(5)]
     public required string CdcCvxCode { get; set; }
     [MaxLength(100)]
@@ -62,6 +62,11 @@ public class CdcLookupNdc : IEquatable<CdcLookupNdc>
     public string? CptLongDescription { get; set; }
     [MaxLength(15)]
     public string? CptStatus { get; set; }
+
+    public static bool CdcFetchComparer(CdcLookupNdc item, CdcLookupNdc other)
+    {
+        return item.SaleLastUpdated == other.SaleLastUpdated && item.UserLastUpdated == other.UserLastUpdated;
+    }
 
     public bool Equals(CdcLookupNdc? other)
     {

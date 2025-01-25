@@ -16,8 +16,14 @@ public class CdcManufacturer : IEquatable<CdcManufacturer>
     public string? ManufacturerNotes { get; set; }
     [MaxLength(15)]
     public required string ManufacturerStatus { get; set; }
-    public DateOnly LastUpdateDate { get; set; }
+    public DateOnly LastUpdatedDate { get; set; }
 
+
+
+    public static bool CdcFetchComparer(CdcManufacturer item, CdcManufacturer other)
+    {
+        return item.LastUpdatedDate == other.LastUpdatedDate;
+    }
     public bool Equals(CdcManufacturer? other)
     {
         if (other is null) return false;

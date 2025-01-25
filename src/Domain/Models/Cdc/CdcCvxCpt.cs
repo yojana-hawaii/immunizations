@@ -23,6 +23,12 @@ public class CdcCvxCpt : IEquatable<CdcCvxCpt>
     [MaxLength(20)]
     public string? CptCodeId { get; set; }
 
+
+    public static bool CdcFetchComparer(CdcCvxCpt item, CdcCvxCpt other)
+    {
+        return item.LastUpdatedDate == other.LastUpdatedDate;
+    }
+
     public bool Equals(CdcCvxCpt? other)
     {
         if (other is null) return false;
