@@ -1,4 +1,5 @@
 ﻿
+using Domain.Utility.CollectionHelper;
 using Infrastructure.AppContext;
 
 namespace Infrastructure.Repository.Cdc;
@@ -24,8 +25,16 @@ public class CdcCvxVisRepository : ICdcCvxVis
     {
         IEnumerable<CdcCvxVis> _vis = _context.CdcCvxVises;
 
-        var _newData = fetchedVis.Except(_vis);
-        _context.AddRange(_newData);
-        _context.SaveChanges();
+        var _result = CompareCollection<CdcCvxVis>
+                    .CompareLists(
+                        _vis,
+                        fetchedVis,
+                        keySelector: c => (c.CdcCvxCode, c.VisDocumentName, c.VisEditionDate),
+                        propertyComparer: (oldItem, newItem) => CdcCvxVis.CdcFetchComparer(oldItem, newItem)
+                    );
+
+        _context.AddRangeAsync(_result.Added);
+        _context.UpdateRange(_result.Changed);
+        _context.SaveChangesAsync();
     }
 }

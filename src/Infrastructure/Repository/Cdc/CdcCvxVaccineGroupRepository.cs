@@ -22,17 +22,18 @@ public class CdcCvxVaccineGroupRepository : ICdcCvxVaccineGroup
         throw new NotImplementedException();
     }
 
-    public void SaveChanges(IEnumerable<CdcCvxVaccineGroup> fetchedData)
+    public void SaveChanges(IEnumerable<CdcCvxVaccineGroup> fetchedVaccineData)
     {
         IEnumerable<CdcCvxVaccineGroup> _vaccineGroup = _context.CdcCvxVaccineGroups;
 
         var result = CompareCollection<CdcCvxVaccineGroup>
-                        .CompareLists(_vaccineGroup, fetchedData,
+                        .CompareLists(_vaccineGroup, fetchedVaccineData,
                             keySelector: c => (c.CdcCvxCode, c.VaccineGroupCvxCode),
-                            propertyComparer: (oldItem, newItem) => oldItem.VaccineStatus == newItem.VaccineStatus && oldItem.VaccineGroupName == newItem.VaccineGroupName
+                            propertyComparer: (oldItem, newItem) => CdcCvxVaccineGroup.CdcFetchComparer(oldItem, newItem)
                         );
 
         _context.AddRangeAsync(result.Added);
+        _context.UpdateRange(result.Changed);
         _context.SaveChangesAsync();
 
     }

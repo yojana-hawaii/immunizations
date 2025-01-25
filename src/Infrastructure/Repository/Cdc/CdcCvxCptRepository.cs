@@ -1,6 +1,5 @@
-﻿
+﻿using Domain.Utility.CollectionHelper;
 using Infrastructure.AppContext;
-using System.Net.Http.Metrics;
 
 
 namespace Infrastructure.Repository.Cdc;
@@ -25,61 +24,22 @@ public class CdcCvxCptRepository : ICdcCvxCpt
         throw new NotImplementedException();
     }
 
-    public void SaveChanges(List<string[]> data)
+    public void SaveChanges(IEnumerable<CdcCvxCpt> fetchedCpts)
     {
-        List<CdcCvxCpt> newData = data.Select(d => new CdcCvxCpt()
-        {
-            CptCode = d[0],
-            CptDescription = d[1],
-            //d[2] always blank??
-            CvxDescription = d[3],
-            CdcCvxCode = d[4],
-            Comments = d[5],
-            LastUpdatedDate = DateOnly.Parse(d[6]),
-            CptCodeId = string.IsNullOrWhiteSpace(d[7]) ? null : d[7]
-        })
-            .OrderBy(x => x.CptCode)
-            .ThenByDescending( x => x.CdcCvxCode)
-            .ToList();
+        IEnumerable<CdcCvxCpt> _cpts = _context.CdcCvxCpts;
 
-        var currentData = _context.CdcCvxCpts.ToList();
+        var _result = CompareCollection<CdcCvxCpt>
+                    .CompareLists(
+                        _cpts, 
+                        fetchedCpts,
+                        keySelector: c => (c.CdcCvxCode, c.CptCode),
+                        propertyComparer: (oldItem, newItem) => CdcCvxCpt.CdcFetchComparer(oldItem, newItem)
+                    );
 
-        List<CdcCvxCpt> changes = SaveModifiedCvxCpts(newData, currentData);
-        List<CdcCvxCpt> additions = AddNewCvxCpt(newData, currentData);
+        _context.AddRangeAsync(_result.Added);
+        _context.UpdateRange(_result.Changed);
+        _context.SaveChangesAsync();
 
-        _context.UpdateRange(changes);
-        _context.AddRange(additions);
-        _context.SaveChanges();
     }
 
-    private List<CdcCvxCpt> AddNewCvxCpt(List<CdcCvxCpt> newData, List<CdcCvxCpt> currentData)
-    {
-        return newData.Where(n => currentData.All(c => c.CdcCvxCode != n.CdcCvxCode && c.CptCode != n.CptCode)).ToList();
-    }
-
-    private List<CdcCvxCpt> SaveModifiedCvxCpts(List<CdcCvxCpt> newData, List<CdcCvxCpt> currentData)
-    {
-
-        var entities = currentData
-            .Where(c => newData.Any(u => u.CdcCvxCode == c.CdcCvxCode && c.CptCode == u.CptCode))
-            .OrderBy(x => x.CptCode)
-            .ThenByDescending(x => x.CdcCvxCode)
-            .ToList();
-
-        List<CdcCvxCpt> changes = new List<CdcCvxCpt>();
-
-        for (int i = 0; i < entities.Count; i++)
-        {
-            if (entities[i].CptCode == newData[i].CptCode && entities[i].CdcCvxCode == newData[i].CdcCvxCode && entities[i].LastUpdatedDate != newData[i].LastUpdatedDate)
-            {
-                entities[i].CptDescription = newData[i].CptDescription;
-                entities[i].Comments = newData[i].Comments;
-                entities[i].LastUpdatedDate = newData[i].LastUpdatedDate;
-                entities[i].CptCodeId = newData[i].CptCodeId;
-                changes.Add(entities[i]);
-            }
-        }
-        return changes;
-
-    }
 }

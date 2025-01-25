@@ -1,9 +1,5 @@
-﻿
+﻿using Domain.Utility.CollectionHelper;
 using Infrastructure.AppContext;
-using Infrastructure.Utility.Cdc;
-using Infrastructure.Utility.Shared;
-using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repository.Cdc;
 
@@ -28,47 +24,19 @@ public class CdcCvxManufacturerRepository : ICdcCvxManufacturer
 
     public void SaveChanges(IEnumerable<CdcCvxManufacturer> fetchedManufacturers)
     { 
-        IEnumerable<CdcCvxManufacturer> _currentData = _context.CdcCvxManufacturers;
+        IEnumerable<CdcCvxManufacturer> _mfr = _context.CdcCvxManufacturers;
 
-        CdcCvxManufacturerComparer _comparer = new CdcCvxManufacturerComparer();
+        var _result = CompareCollection<CdcCvxManufacturer>
+                     .CompareLists(
+                         _mfr,
+                         fetchedManufacturers,
+                         keySelector: c => (c.CdcCvxCode, c.CdcProductName, c.MvxCode),
+                         propertyComparer: (oldItem, newItem) => CdcCvxManufacturer.CdcFetchComparer(oldItem, newItem)
+                     );
 
-
-        if (!CollectionHelper<CdcCvxManufacturer>.CollectionEquals(_currentData, fetchedManufacturers, _comparer))
-        {
-            List<CdcCvxManufacturer> changes;
-            IEnumerable<CdcCvxManufacturer> addition;
-
-            // data changes > update
-            changes = CollectionHelper<CdcCvxManufacturer>.Changes(_currentData, fetchedManufacturers, _comparer);
-            // data missing in current > add
-            addition = fetchedManufacturers.Except(_currentData, _comparer);
-            // data missing in new > ignore vs delete in current vs mark as deleted
-
-
-            try
-            {
-                _context.AddRange(addition);
-                _context.UpdateRange(changes);
-                _context.SaveChanges();
-            }
-            catch (DbUpdateException ex)
-            {
-                var sqlException = ex.GetBaseException() as SqlException;
-                if (sqlException?.Number == 2627)
-                {
-                    Console.WriteLine("Duplicate data entry");
-                }
-                else
-                {
-                    Console.WriteLine("Other Db Errors");
-                }
-
-            }
-        }
-        else
-        {
-            Console.WriteLine("current and new are same");
-        }
+        _context.AddRangeAsync(_result.Added);
+        _context.UpdateRange(_result.Changed);
+        _context.SaveChangesAsync();
 
     }
 }
