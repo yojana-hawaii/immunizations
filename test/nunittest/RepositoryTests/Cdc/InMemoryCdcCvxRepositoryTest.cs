@@ -21,8 +21,8 @@ class InMemoryCdcCvxRepositoryTest : AppDbContextBase
 
         Assert.IsNotNull(cvxes);
         Assert.That(cvxes.Count(), Is.EqualTo(4));
-        CollectionAssert.AllItemsAreUnique(cvxes);
-        CollectionAssert.AllItemsAreNotNull(cvxes);
+        Assert.That(cvxes, Is.Unique);
+        Assert.That(cvxes, Is.All.Not.Null);
 
         Assert.That(cvxes.Count( c => c.CdcCvxCode == "012"), Is.EqualTo(1));
         Assert.That(cvxes.Count( c => c.CdcCvxCode == "000"), Is.EqualTo(0));
