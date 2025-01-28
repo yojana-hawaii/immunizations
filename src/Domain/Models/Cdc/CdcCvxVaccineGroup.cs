@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Domain.Model.Extension;
 
 namespace Domain.Models.Cdc;
 
-public class CdcCvxVaccineGroup : IEquatable<CdcCvxVaccineGroup>
+public class CdcCvxVaccineGroup : AuditableEntity, IEquatable<CdcCvxVaccineGroup>
 {
     [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int CdcCvxVaccineGroupId { get; set; }

@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Domain.Model.Extension;
 
 namespace Domain.Models.Cdc;
 
-public class CdcCvxManufacturer : IEquatable<CdcCvxManufacturer>
+public class CdcCvxManufacturer : AuditableEntity, IEquatable<CdcCvxManufacturer>
 {
     [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int CdcCvxManufacturerId { get; set; }

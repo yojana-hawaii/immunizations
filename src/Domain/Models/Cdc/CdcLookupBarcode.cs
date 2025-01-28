@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Domain.Model.Extension;
 
 namespace Domain.Models.Cdc;
 
-public class CdcLookupBarcode : IEquatable<CdcLookupBarcode>
+public class CdcLookupBarcode : AuditableEntity, IEquatable<CdcLookupBarcode>
 {
     [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int CdcBarcodeLookupId { get; set; }
