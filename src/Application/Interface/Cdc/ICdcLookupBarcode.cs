@@ -11,6 +11,6 @@ public interface ICdcLookupBarcode
     /// <returns></returns>
     IEnumerable<CdcLookupBarcode> GetAll();
     CdcLookupBarcode GetByCvxCode(string cvxCode);
-    void SaveChanges(IEnumerable<CdcLookupBarcode> fetchedBarcode);
+    void UpdateFetchedData(IEnumerable<CdcLookupBarcode> fetchedBarcode);
 
 }

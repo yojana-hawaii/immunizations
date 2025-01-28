@@ -10,6 +10,6 @@ public interface ICdcCvxVaccineGroup
     /// <returns></returns>
     IEnumerable<CdcCvxVaccineGroup> GetAll();
     CdcCvxVaccineGroup GetByCvxCode(string cvxCode);
-    void SaveChanges(IEnumerable<CdcCvxVaccineGroup> fetchedData);
+    void UpdateFetchedData(IEnumerable<CdcCvxVaccineGroup> fetchedData);
 
 }

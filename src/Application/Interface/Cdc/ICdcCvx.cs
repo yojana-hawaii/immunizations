@@ -14,5 +14,5 @@ public interface ICdcCvx
 
     IEnumerable<CdcCvx> GetAll();
     CdcCvx GetByCvxCode(string cvxCode);
-    void SaveChanges(IEnumerable<CdcCvx> fetchedCvx);
+    void UpdateFetchedData(IEnumerable<CdcCvx> fetchedCvx);
 }

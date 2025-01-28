@@ -10,7 +10,7 @@
         /// <returns></returns>
         IEnumerable<CdcCvxCpt> GetAll();
         CdcCvxCpt GetByCvxCode(string cvxCode);
-        void SaveChanges(IEnumerable<CdcCvxCpt> fetchedCpt);
+        void UpdateFetchedData(IEnumerable<CdcCvxCpt> fetchedCpt);
 
     }
 }

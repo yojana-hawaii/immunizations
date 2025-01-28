@@ -47,12 +47,10 @@ public class InventoryDbContext : DbContext
                 ((AuditableEntity)entity.Entity).CreatedDate = DateTime.UtcNow;
                 ((AuditableEntity)entity.Entity).CreatedBy = creator;
             }
-            else
-            {
-                //last modified needs to be updated whether new is added or old updated
-                ((AuditableEntity)entity.Entity).ModifiedDate = DateTime.UtcNow;
-                ((AuditableEntity)entity.Entity).ModifiedBy = modifier;
-            }
+            //last modified needs to be updated whether new is added or old updated
+            ((AuditableEntity)entity.Entity).ModifiedDate = DateTime.UtcNow;
+            ((AuditableEntity)entity.Entity).ModifiedBy = modifier;
+
 
         }
         return await base.SaveChangesAsync(cancellationToken);
