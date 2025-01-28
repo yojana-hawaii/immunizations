@@ -23,7 +23,7 @@ public class CdcManufacturerRepository : ICdcManufacturer
         throw new NotImplementedException();
     }
 
-    public void SaveChanges(IEnumerable<CdcManufacturer> fetchedManufacturer)
+    public void SaveChangesAsync(IEnumerable<CdcManufacturer> fetchedManufacturer)
     {
         IEnumerable<CdcManufacturer> _mfr = _context.CdcManufacturers;
 
@@ -36,7 +36,7 @@ public class CdcManufacturerRepository : ICdcManufacturer
                     );
 
         _context.AddRangeAsync(_result.Added);
-        _context.UpdateRange(_result.Changed);
+        //_context.UpdateRange(_result.Changed);
         _context.SaveChangesAsync();
     }
 }

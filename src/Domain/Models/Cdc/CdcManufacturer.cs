@@ -1,11 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Domain.Model.Extension;
 
 namespace Domain.Models.Cdc;
 
 public class CdcManufacturer : IEquatable<CdcManufacturer>
 {
-    [Key, DatabaseGenerated(DatabaseGeneratedOption.None)] // from downloaded file
+    [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)] // from downloaded file
     public int ManufacturerId { get; set; }
 
     [MaxLength(5)]

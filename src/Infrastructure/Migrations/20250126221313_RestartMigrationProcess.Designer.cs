@@ -12,15 +12,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(InventoryDbContext))]
-    [Migration("20250112034058_Name Without All Lowercase")]
-    partial class NameWithoutAllLowercase
+    [Migration("20250126221313_RestartMigrationProcess")]
+    partial class RestartMigrationProcess
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.0")
+                .HasAnnotation("ProductVersion", "9.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -93,18 +93,22 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
+                    b.Property<string>("CptCodeId")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
                     b.Property<string>("CptDescription")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
-                    b.Property<DateOnly>("LateUpdatedDate")
-                        .HasColumnType("date");
-
-                    b.Property<string>("VaccineName")
+                    b.Property<string>("CvxDescription")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<DateOnly>("LastUpdatedDate")
+                        .HasColumnType("date");
 
                     b.HasKey("CdcCvxCptId");
 
@@ -129,15 +133,15 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("CdcProductName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateOnly>("LastUpdatedDate")
                         .HasColumnType("date");
 
                     b.Property<string>("Manufacturer")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("MvxCode")
                         .HasMaxLength(5)
@@ -236,12 +240,14 @@ namespace Infrastructure.Migrations
                     b.Property<DateOnly>("VisEditionDate")
                         .HasColumnType("date");
 
-                    b.Property<bool>("VisEditionStatus")
+                    b.Property<string>("VisEditionStatus")
                         .HasMaxLength(15)
-                        .HasColumnType("bit");
+                        .HasColumnType("nvarchar(15)");
 
-                    b.Property<int>("VisFullyEncodedTextString")
-                        .HasColumnType("int");
+                    b.Property<string>("VisFullyEncodedTextString")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.HasKey("CdcVisId");
 
@@ -268,7 +274,7 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
 
-                    b.Property<DateOnly>("LateUpdateDate")
+                    b.Property<DateOnly>("LateUpdatedDate")
                         .HasColumnType("date");
 
                     b.Property<string>("VisDocumentTypeDescription")
@@ -312,8 +318,8 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(15)");
 
                     b.Property<string>("CptLongDescription")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("CptShortDescription")
                         .HasMaxLength(50)
@@ -323,13 +329,13 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
 
-                    b.Property<DateOnly?>("CvxEddectiveDate")
+                    b.Property<DateOnly?>("CvxEffectiveDate")
                         .HasColumnType("date");
 
                     b.Property<string>("CvxLongDescription")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<DateOnly?>("CvxRetiredDate")
                         .HasColumnType("date");
@@ -341,8 +347,8 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("CvxStatus")
                         .IsRequired()
-                        .HasMaxLength(5)
-                        .HasColumnType("nvarchar(5)");
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
 
                     b.Property<string>("Manufacturer")
                         .IsRequired()
@@ -376,7 +382,7 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<DateOnly>("SaleLastUpdate")
+                    b.Property<DateOnly>("SaleLastUpdated")
                         .HasColumnType("date");
 
                     b.Property<string>("SaleNdc10")
@@ -389,8 +395,8 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(15)");
 
                     b.Property<string>("SalePackageForm")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("SaleProprietaryName")
                         .IsRequired()
@@ -421,10 +427,10 @@ namespace Infrastructure.Migrations
                         .HasColumnType("date");
 
                     b.Property<string>("UseUnitPackerForm")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
-                    b.Property<DateOnly>("UserLastUpdate")
+                    b.Property<DateOnly>("UserLastUpdated")
                         .HasColumnType("date");
 
                     b.Property<string>("VaccineSeason")
@@ -433,10 +439,31 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("CdcLookupNdc10Id");
 
-                    b.HasIndex("SaleNdc11", "SaleNdc10", "UseNdc11", "UseNdc10", "CdcCvxCode", "MvxCode")
+                    b.HasIndex("CdcCvxCode")
+                        .HasDatabaseName("IX_cvx");
+
+                    b.HasIndex("CptCode")
+                        .HasDatabaseName("IX_cpt");
+
+                    b.HasIndex("MvxCode")
+                        .HasDatabaseName("IX_mvx");
+
+                    b.HasIndex("SaleNdc10")
+                        .HasDatabaseName("IX_sale_ndc10");
+
+                    b.HasIndex("SaleNdc11")
+                        .HasDatabaseName("IX_sale_ndc11");
+
+                    b.HasIndex("UseNdc10")
+                        .HasDatabaseName("IX_use_ndc10");
+
+                    b.HasIndex("UseNdc11")
+                        .HasDatabaseName("IX_use_ndc11");
+
+                    b.HasIndex("SaleNdc11", "SaleNdc10", "UseNdc11", "UseNdc10", "CdcCvxCode", "MvxCode", "CptCode")
                         .IsUnique()
-                        .HasDatabaseName("IX_ndc11_ndc10_cvx_mvx")
-                        .HasFilter("[SaleNdc10] IS NOT NULL");
+                        .HasDatabaseName("IX_ndc11_ndc10_cvx_mvx_cpt")
+                        .HasFilter("[SaleNdc10] IS NOT NULL AND [CptCode] IS NOT NULL");
 
                     b.ToTable("CdcLookupNdcs");
                 });
@@ -444,9 +471,12 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Models.Cdc.CdcManufacturer", b =>
                 {
                     b.Property<int>("ManufacturerId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<DateOnly>("LastUpdateDate")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ManufacturerId"));
+
+                    b.Property<DateOnly>("LastUpdatedDate")
                         .HasColumnType("date");
 
                     b.Property<string>("ManufacturerName")

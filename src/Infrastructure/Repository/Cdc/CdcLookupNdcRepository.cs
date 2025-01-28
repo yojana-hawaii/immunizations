@@ -43,12 +43,12 @@ public class CdcLookupNdcRepository : ICdcLookupNdc
                     .CompareLists(
                         _ndc,
                         fetchedNdc,
-                        keySelector: c => (c.SaleNdc10, c.SaleNdc11, c.UseNdc10, c.UseNdc11, c.CdcCvxCode, c.MvxCode),
+                        keySelector: c => (c.SaleNdc10, c.SaleNdc11, c.UseNdc10, c.UseNdc11, c.CdcCvxCode, c.MvxCode, c.CptCode),
                         propertyComparer: (oldItem, newItem) => CdcLookupNdc.CdcFetchComparer(oldItem, newItem)
                     );
 
-        _context.AddRangeAsync(_result.Added);
+        _context.AddRange(_result.Added);
         _context.UpdateRange(_result.Changed);
-        _context.SaveChangesAsync();
+        _context.SaveChanges();
     }
 }
