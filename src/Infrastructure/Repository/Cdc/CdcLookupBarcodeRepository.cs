@@ -23,7 +23,7 @@ public class CdcLookupBarcodeRepository : ICdcLookupBarcode
         throw new NotImplementedException();
     }
 
-    public void SaveChanges(IEnumerable<CdcLookupBarcode> fetchedBarcode)
+    public void UpdateFetchedData(IEnumerable<CdcLookupBarcode> fetchedBarcode)
     {
         IEnumerable<CdcLookupBarcode> _barcode = _context.CdcLoopupBarcodes;
 
@@ -37,6 +37,7 @@ public class CdcLookupBarcodeRepository : ICdcLookupBarcode
 
         _context.AddRangeAsync(_result.Added);
         _context.UpdateRange(_result.Changed);
-        _context.SaveChangesAsync();
+        var task = _context.SaveChangesAsync();
+
     }
 }

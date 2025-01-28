@@ -22,7 +22,7 @@ public class CdcCvxManufacturerRepository : ICdcCvxManufacturer
         throw new NotImplementedException();
     }
 
-    public void SaveChanges(IEnumerable<CdcCvxManufacturer> fetchedManufacturers)
+    public void UpdateFetchedData(IEnumerable<CdcCvxManufacturer> fetchedManufacturers)
     { 
         IEnumerable<CdcCvxManufacturer> _mfr = _context.CdcCvxManufacturers;
 
@@ -36,7 +36,7 @@ public class CdcCvxManufacturerRepository : ICdcCvxManufacturer
 
         _context.AddRangeAsync(_result.Added);
         _context.UpdateRange(_result.Changed);
-        _context.SaveChangesAsync();
+        var task = _context.SaveChangesAsync();
 
     }
 }

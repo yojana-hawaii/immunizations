@@ -3,7 +3,6 @@ using Asp.Versioning;
 using Domain.Models.Cdc;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace api.Controllers;
 
@@ -31,7 +30,8 @@ public class CdcController : ControllerBase
         {"cdcCvxManufacturer",  "https://www2a.cdc.gov/vaccines/iis/iisstandards/downloads/TRADENAME.txt" },
         {"cdcCvxVaccineGroup",  "https://www2a.cdc.gov/vaccines/iis/iisstandards/downloads/VG.txt" },
         {"CdcCvxVis",           "https://www2a.cdc.gov/vaccines/iis/iisstandards/downloads/cvx_vis.txt" },
-        {"cdcBarcode",          "https://www.cdc.gov/iis/code-sets/downloads/vis-barcode-lookup-table" },
+        {"cdcBarcode",          "https://www2.cdc.gov/vaccines/iis/iisstandards/downloads/vis-barcode-lookup.txt" },
+
         {"cdcNdc",              "https://www2a.cdc.gov/vaccines/iis/iisstandards/downloads/NDC/get_all_ndc_display2.txt" },
         {"cdcManufacturer",     "https://www2a.cdc.gov/vaccines/iis/iisstandards/downloads/mvx.txt" },
     };
@@ -75,51 +75,60 @@ public class CdcController : ControllerBase
             ManufacturerName = d[1],
             ManufacturerNotes = d[2],
             ManufacturerStatus = d[3],
-            LastUpdateDate = DateOnly.Parse(d[4])
+            LastUpdatedDate = DateOnly.Parse(d[4])
         });
-        _cdcManufacturer.SaveChanges(_mfr);
+        _cdcManufacturer.UpdateFetchedData(_mfr);
     }
 
     private async Task FetchCdcNdcAsync()
     {
         var _data = await DownloadCdcDataAsync(_uri["cdcNdc"]);
 
-        IEnumerable<CdcLookupNdc> _ndc = _data.Select(d => new CdcLookupNdc()
-        {
-            SaleNdc11 = d[0],
-            SaleNdc10 = d[1],
-            SaleProprietaryName = d[2],
-            SaleLabeler = d[3],
-            SalePackageForm = d[4],
-            Route = d[5],
-            SaleStatDate = DateOnly.Parse(d[6]),
-            SaleEndDate = DateOnly.Parse(d[7]),
-            SaleGtin = d[8],
-            SaleLastUpdate = DateOnly.Parse(d[9]),
-            VaccineSeason = d[10],
-            UseNdc11 = d[11],
-            UseNdc10 = d[12],
-            UseUnitPackerForm = d[13],
-            UseStartDate = DateOnly.Parse(d[14]),
-            UseEndDate = DateOnly.Parse(d[15]),
-            UseGtin = d[16],
-            UserLastUpdate = DateOnly.Parse(d[17]),
-            CdcCvxCode = d[18],
-            CvxShortDescription = d[19],
-            CvxLongDescription = d[20],
-            CvxStatus = d[21],
-            CvxEffectiveDate = DateOnly.Parse(d[22]),
-            CvxRetiredDate = DateOnly.Parse(d[23]),
-            MvxCode = d[24],
-            Manufacturer = d[25],
-            MvxStatus = d[26],
-            CptCode = d[27],
-            CptShortDescription = d[28],
-            CptLongDescription = d[29],
-            CptStatus = d[30],
-        });
+        IEnumerable<CdcLookupNdc> _ndc = _data
+            .Skip(1)
+            .Select(d => new CdcLookupNdc()
+            {
+                SaleNdc11 = d[0],
+                SaleNdc10 = d[1],
+                SaleProprietaryName = d[2],
+                SaleLabeler = d[3],
+                SalePackageForm = d[4],
+                Route = d[5],
+                SaleStatDate = ParseNullableDateOnly(d[6]),
+                SaleEndDate = ParseNullableDateOnly(d[7]),
+                SaleGtin = d[8],
+                SaleLastUpdated = DateOnly.Parse(d[9]),
+                VaccineSeason = d[10],
+                UseNdc11 = d[11],
+                UseNdc10 = d[12],
+                UseUnitPackerForm = d[13],
+                UseStartDate = ParseNullableDateOnly(d[14]),
+                UseEndDate = ParseNullableDateOnly(d[15]),
+                UseGtin = d[16],
+                UserLastUpdated = DateOnly.Parse(d[17]),
+                CdcCvxCode = d[18],
+                CvxShortDescription = d[19],
+                CvxLongDescription = d[20],
+                CvxStatus = d[21],
+                CvxEffectiveDate = ParseNullableDateOnly(d[22]),
+                CvxRetiredDate = ParseNullableDateOnly(d[23]),
+                MvxCode = d[24],
+                Manufacturer = d[25],
+                MvxStatus = d[26],
+                CptCode = d[27],
+                CptShortDescription = d[28],
+                CptLongDescription = d[29],
+                CptStatus = d[30],
+            });
 
-        _cdcLookupNdc.SaveChanges(_ndc);
+        _cdcLookupNdc.UpdateFetchedData(_ndc);
+    }
+
+    private DateOnly? ParseNullableDateOnly(string str)
+    {
+        if(string.IsNullOrWhiteSpace(str)) return null;
+
+        return DateOnly.Parse(str);
     }
 
     private async Task FetchCdcBarcodeAsync()
@@ -133,10 +142,10 @@ public class CdcController : ControllerBase
             VisFullyEncodedString = d[2],
             VisGdtiCode = d[3],
             EditionStatus = d[4],
-            LateUpdateDate = DateOnly.FromDateTime(DateTime.Parse(d[5])),
+            LateUpdatedDate = DateOnly.FromDateTime(DateTime.Parse(d[5])),
         });
 
-        _cdcLookupBarcode.SaveChanges(_barcode);
+        _cdcLookupBarcode.UpdateFetchedData(_barcode);
     }
 
     private async Task FetchCdcCvxVisAsync()
@@ -151,7 +160,7 @@ public class CdcController : ControllerBase
             VisEditionDate = DateOnly.FromDateTime(DateTime.Parse(d[4])),
             VisEditionStatus = d[5]
         });
-        _cdcCvxVis.SaveChanges(_vis);
+        _cdcCvxVis.UpdateFetchedData(_vis);
     }
 
     private async Task FetchCdcCvxVaccineGroupAsync()
@@ -166,7 +175,7 @@ public class CdcController : ControllerBase
             VaccineGroupCvxCode = d[4],
         });
 
-        _cdcCvxVaccineGroup.SaveChanges(_vaccineGroup);
+        _cdcCvxVaccineGroup.UpdateFetchedData(_vaccineGroup);
     }
 
     private async Task FetchCdcCvxManufacturerAsync()
@@ -184,7 +193,7 @@ public class CdcController : ControllerBase
             LastUpdatedDate = DateOnly.Parse(d[7]),
         });
 
-        _cdcCvxManufacturer.SaveChanges(_mfr);
+        _cdcCvxManufacturer.UpdateFetchedData(_mfr);
     }
 
     private async Task FetchCdcCvxCptAsync()
@@ -202,7 +211,7 @@ public class CdcController : ControllerBase
             LastUpdatedDate = DateOnly.Parse(d[6]),
             CptCodeId = string.IsNullOrWhiteSpace(d[7]) ? null : d[7]
         });
-        _cdcCvxCpt.SaveChanges(_cpts);
+        _cdcCvxCpt.UpdateFetchedData(_cpts);
     }
 
     private async Task FetchCdcCvxAsync()
@@ -219,7 +228,7 @@ public class CdcController : ControllerBase
             LastUpdatedDate = DateOnly.Parse(d[6])
 
         });
-        _cdcCvx.SaveChanges(_cvx);
+        _cdcCvx.UpdateFetchedData(_cvx);
     }
 
     private async Task<List<string[]>> DownloadCdcDataAsync(string url)
@@ -240,7 +249,7 @@ public class CdcController : ControllerBase
                 if (string.IsNullOrWhiteSpace(line))
                     continue;
 
-                var delimited = line.Split('|').Select(d => d.Trim().Replace(@"""", @"\""")).ToArray();
+                var delimited = line.Split('|').Select(d => d.Trim().Replace("\\", "").Replace("\"", "")).ToArray();
 
                 data.Add(delimited);
 

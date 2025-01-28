@@ -22,7 +22,7 @@ public class CdcCvxVaccineGroupRepository : ICdcCvxVaccineGroup
         throw new NotImplementedException();
     }
 
-    public void SaveChanges(IEnumerable<CdcCvxVaccineGroup> fetchedVaccineData)
+    public void UpdateFetchedData(IEnumerable<CdcCvxVaccineGroup> fetchedVaccineData)
     {
         IEnumerable<CdcCvxVaccineGroup> _vaccineGroup = _context.CdcCvxVaccineGroups;
 
@@ -34,7 +34,7 @@ public class CdcCvxVaccineGroupRepository : ICdcCvxVaccineGroup
 
         _context.AddRangeAsync(result.Added);
         _context.UpdateRange(result.Changed);
-        _context.SaveChangesAsync();
+        var task = _context.SaveChangesAsync();
 
     }
 }

@@ -24,7 +24,7 @@ public class CdcCvxCptRepository : ICdcCvxCpt
         throw new NotImplementedException();
     }
 
-    public void SaveChanges(IEnumerable<CdcCvxCpt> fetchedCpts)
+    public void UpdateFetchedData(IEnumerable<CdcCvxCpt> fetchedCpts)
     {
         IEnumerable<CdcCvxCpt> _cpts = _context.CdcCvxCpts;
 
@@ -38,7 +38,8 @@ public class CdcCvxCptRepository : ICdcCvxCpt
 
         _context.AddRangeAsync(_result.Added);
         _context.UpdateRange(_result.Changed);
-        _context.SaveChangesAsync();
+        var task = _context.SaveChangesAsync();
+
 
     }
 

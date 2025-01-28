@@ -37,7 +37,7 @@ public class CdcCvxRepository : ICdcCvx
     }
 
 
-    public void SaveChanges(IEnumerable<CdcCvx> fetchedCvxes)
+    public void UpdateFetchedData(IEnumerable<CdcCvx> fetchedCvxes)
     {
         IEnumerable<CdcCvx> _cvx = _context.CdcCvxes;
 
@@ -49,7 +49,7 @@ public class CdcCvxRepository : ICdcCvx
 
         _context.AddRangeAsync(result.Added);
         _context.UpdateRange(result.Changed);
-        _context.SaveChangesAsync();
+        var task = _context.SaveChangesAsync();
 
     }
 

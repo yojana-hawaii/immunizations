@@ -21,7 +21,7 @@ public class CdcCvxVisRepository : ICdcCvxVis
         throw new NotImplementedException();
     }
 
-    public void SaveChanges(IEnumerable<CdcCvxVis> fetchedVis)
+    public void UpdateFetchedData(IEnumerable<CdcCvxVis> fetchedVis)
     {
         IEnumerable<CdcCvxVis> _vis = _context.CdcCvxVises;
 
@@ -35,6 +35,7 @@ public class CdcCvxVisRepository : ICdcCvxVis
 
         _context.AddRangeAsync(_result.Added);
         _context.UpdateRange(_result.Changed);
-        _context.SaveChangesAsync();
+        var task = _context.SaveChangesAsync();
+
     }
 }

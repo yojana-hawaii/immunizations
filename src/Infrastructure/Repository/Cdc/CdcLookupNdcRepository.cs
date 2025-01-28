@@ -35,7 +35,7 @@ public class CdcLookupNdcRepository : ICdcLookupNdc
         return _ndc;
     }
 
-    public void SaveChanges(IEnumerable<CdcLookupNdc> fetchedNdc)
+    public void UpdateFetchedData(IEnumerable<CdcLookupNdc> fetchedNdc)
     {
         IEnumerable<CdcLookupNdc> _ndc = _context.CdcLookupNdcs;
 
@@ -49,6 +49,7 @@ public class CdcLookupNdcRepository : ICdcLookupNdc
 
         _context.AddRange(_result.Added);
         _context.UpdateRange(_result.Changed);
-        _context.SaveChanges();
+        var task = _context.SaveChangesAsync();
+
     }
 }
