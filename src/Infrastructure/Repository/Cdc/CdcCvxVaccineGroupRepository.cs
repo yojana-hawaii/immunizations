@@ -34,7 +34,6 @@ public class CdcCvxVaccineGroupRepository : ICdcCvxVaccineGroup
 
         _context.AddRangeAsync(result.Added);
         _context.UpdateRange(result.Changed);
-        var task = _context.SaveChangesAsync();
-
+        _context.SaveChanges();
     }
 }

@@ -37,7 +37,6 @@ public class CdcManufacturerRepository : ICdcManufacturer
 
         _context.AddRangeAsync(_result.Added);
         _context.UpdateRange(_result.Changed);
-        var task = _context.SaveChangesAsync();
-
+        _context.SaveChanges();
     }
 }
