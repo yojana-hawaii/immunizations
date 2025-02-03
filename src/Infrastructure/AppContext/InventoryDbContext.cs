@@ -1,13 +1,31 @@
 ﻿using Domain.Model.Extension;
-using Domain.Models.Cdc;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-using System.Runtime.InteropServices;
 
 namespace Infrastructure.AppContext;
 
 public class InventoryDbContext : DbContext
 {
+    // access to IHttpContextAccessor
+    private readonly IHttpContextAccessor? _httpContextAccessor;
+    public string? LoggedInUser { get; private set; }
+
+    //overload controller
+    public InventoryDbContext(DbContextOptions<InventoryDbContext> options, IHttpContextAccessor httpContextAccessor) : base(options)
+    {
+        _httpContextAccessor = httpContextAccessor;
+        if (_httpContextAccessor.HttpContext != null)
+        {
+            LoggedInUser = _httpContextAccessor.HttpContext.User.Identity?.Name;
+            LoggedInUser = LoggedInUser ?? "Unknown";
+        }
+        else
+        {
+            //no httpcontext means user did not make the change
+            LoggedInUser = "seed-data";
+        }
+    }
     public InventoryDbContext(DbContextOptions<InventoryDbContext> options) : base(options) { }
 
     public DbSet<CdcCvx> CdcCvxes { get; set; }
@@ -25,37 +43,41 @@ public class InventoryDbContext : DbContext
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
     }
 
-    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
+
+    //override save changes synchronous & async
+    public override int SaveChanges(bool acceptAllChangesOnSuccess)
     {
-        //get all entities that inherit from AuditableEntity and have state of Added or Modified
-        var entities = ChangeTracker
-            .Entries()
-            .Where(e => e.Entity is AuditableEntity && (e.State == EntityState.Added || e.State == EntityState.Modified));
-
-        var creator = "creator";
-        var modifier = "modifier";
-
-        foreach (var entity in entities)
-        {
-
-            // check if there is better option that HttpContextAccessor. Need to Inject Services.AddHttpContextAccessor();
-            //var user = _httpContextAccessor?.HttpContext?.User?.Identity?.Name ?? "MyApp";
-
-            //if entity statis is added, Utc createdAt and CreatedBy HttpContextAccessor
-            if (entity.State == EntityState.Added)
-            {
-                ((AuditableEntity)entity.Entity).CreatedDate = DateTime.UtcNow;
-                ((AuditableEntity)entity.Entity).CreatedBy = creator;
-            }
-            //last modified needs to be updated whether new is added or old updated
-            ((AuditableEntity)entity.Entity).ModifiedDate = DateTime.UtcNow;
-            ((AuditableEntity)entity.Entity).ModifiedBy = modifier;
-
-
-        }
-        return await base.SaveChangesAsync(cancellationToken);
-
+        OnBeforeSaving();
+        return base.SaveChanges(acceptAllChangesOnSuccess);
+    }
+    public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+    {
+        OnBeforeSaving();
+        return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
     }
 
-
+    private void OnBeforeSaving()
+    {
+        var entities = ChangeTracker.Entries();
+        foreach (var ent in entities)
+        {
+            if (ent.Entity is IAuditable trackable)
+            {
+                var now = DateTime.UtcNow;
+                switch (ent.State)
+                {
+                    case EntityState.Modified:
+                        trackable.ModifiedBy = LoggedInUser;
+                        trackable.ModifiedDate = now;
+                        break;
+                    case EntityState.Added:
+                        trackable.CreatedBy = LoggedInUser;
+                        trackable.CreatedDate = now;
+                        trackable.ModifiedBy = LoggedInUser;
+                        trackable.ModifiedDate = now;
+                        break;
+                }
+            }
+        }
+    }
 }

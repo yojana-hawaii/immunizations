@@ -18,8 +18,14 @@ builder.Services.AddDbContext<InventoryDbContext>(
 //support for controllers, API explorer, Authorization, CQRS, Validation etc.
 builder.Services.AddControllers();
 
-//Minimal API 
-builder.Services.AddEndpointsApiExplorer();
+//Minimal API - not using MapGet, using controller API
+//builder.Services.AddEndpointsApiExplorer();
+
+
+
+//Access to HttpContextAccessor for user data for Audit data - keep Singleton
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
 
 //http client
 builder.Services.AddHttpClient();
