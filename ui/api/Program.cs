@@ -9,9 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 // SSERVICES for DEPENDENCY INJECTION CONTAINER
 
 //DbContext with connection string in Configuratiion file appsettings.json
-builder.Services.AddDbContext<InventoryDbContext>(
+builder.Services.AddDbContext<YojanaContext>(
         options => options.UseSqlServer(
-            builder.Configuration.GetConnectionString("localdb")
+            builder.Configuration.GetConnectionString("Yojana")
             )
     );
 

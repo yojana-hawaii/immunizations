@@ -6,10 +6,10 @@ namespace Infrastructure.Repository.Cdc;
 
 public class CdcCvxRepository : ICdcCvx
 {
-    private readonly InventoryDbContext _context;
+    private readonly YojanaContext _context;
 
 
-    public CdcCvxRepository(InventoryDbContext context)
+    public CdcCvxRepository(YojanaContext context)
     {
         _context = context;
     }

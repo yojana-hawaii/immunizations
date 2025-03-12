@@ -6,8 +6,8 @@ namespace Infrastructure.Repository.Cdc;
 
 public class CdcCvxVaccineGroupRepository : ICdcCvxVaccineGroup
 {
-    private readonly InventoryDbContext _context;
-    public CdcCvxVaccineGroupRepository(InventoryDbContext context)
+    private readonly YojanaContext _context;
+    public CdcCvxVaccineGroupRepository(YojanaContext context)
     {
         _context = context;
     }

@@ -6,9 +6,9 @@ namespace Infrastructure.Repository.Cdc;
 
 public class CdcLookupNdcRepository : ICdcLookupNdc
 {
-    private readonly InventoryDbContext _context;
+    private readonly YojanaContext _context;
 
-    public CdcLookupNdcRepository(InventoryDbContext dbContext)
+    public CdcLookupNdcRepository(YojanaContext dbContext)
     {
         _context = dbContext;
     }

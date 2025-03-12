@@ -6,9 +6,9 @@ namespace Infrastructure.Repository.Cdc;
 
 public class CdcManufacturerRepository : ICdcManufacturer
 {
-    private readonly InventoryDbContext _context;
+    private readonly YojanaContext _context;
 
-    public CdcManufacturerRepository(InventoryDbContext context)
+    public CdcManufacturerRepository(YojanaContext context)
     {
         _context = context;
     }

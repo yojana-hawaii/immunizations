@@ -5,14 +5,14 @@ using System.Reflection;
 
 namespace Infrastructure.AppContext;
 
-public class InventoryDbContext : DbContext
+public class YojanaContext : DbContext
 {
     // access to IHttpContextAccessor
     private readonly IHttpContextAccessor? _httpContextAccessor;
     public string? LoggedInUser { get; private set; }
 
     //overload controller
-    public InventoryDbContext(DbContextOptions<InventoryDbContext> options, IHttpContextAccessor httpContextAccessor) : base(options)
+    public YojanaContext(DbContextOptions<YojanaContext> options, IHttpContextAccessor httpContextAccessor) : base(options)
     {
         _httpContextAccessor = httpContextAccessor;
         if (_httpContextAccessor.HttpContext != null)
@@ -26,7 +26,7 @@ public class InventoryDbContext : DbContext
             LoggedInUser = "seed-data";
         }
     }
-    public InventoryDbContext(DbContextOptions<InventoryDbContext> options) : base(options) { }
+    public YojanaContext(DbContextOptions<YojanaContext> options) : base(options) { }
 
     public DbSet<CdcCvx> CdcCvxes { get; set; }
     public DbSet<CdcCvxCpt> CdcCvxCpts { get; set; }

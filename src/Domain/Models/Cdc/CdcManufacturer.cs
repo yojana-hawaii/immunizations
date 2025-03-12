@@ -7,15 +7,15 @@ namespace Domain.Models.Cdc;
 public class CdcManufacturer : AuditableEntity, IEquatable<CdcManufacturer>
 {
     [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)] // from downloaded file
-    public int ManufacturerId { get; set; }
+    public int Id { get; set; }
 
-    [MaxLength(5)]
+    [StringLength(5)]
     public required string MvxCode { get; set; }
-    [MaxLength(100)]
+    [StringLength(100)]
     public required string ManufacturerName { get; set; }
-    [MaxLength(200)]
+    [StringLength(200)]
     public string? ManufacturerNotes { get; set; }
-    [MaxLength(15)]
+    [StringLength(15)]
     public required string ManufacturerStatus { get; set; }
     public DateOnly LastUpdatedDate { get; set; }
 

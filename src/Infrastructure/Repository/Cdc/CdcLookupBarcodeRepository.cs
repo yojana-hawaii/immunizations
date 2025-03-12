@@ -6,9 +6,9 @@ namespace Infrastructure.Repository.Cdc;
 
 public class CdcLookupBarcodeRepository : ICdcLookupBarcode
 {
-    private readonly InventoryDbContext _context;
+    private readonly YojanaContext _context;
 
-    public CdcLookupBarcodeRepository(InventoryDbContext context)
+    public CdcLookupBarcodeRepository(YojanaContext context)
     {
         _context = context;
     }

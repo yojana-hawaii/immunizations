@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Infrastructure.Migrations
+namespace Infrastructure.YojanaMigration
 {
     /// <inheritdoc />
-    public partial class RestartMigrationProcess : Migration
+    public partial class YojanaEntity : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,7 +15,7 @@ namespace Infrastructure.Migrations
                 name: "CdcCvxCpts",
                 columns: table => new
                 {
-                    CdcCvxCptId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CptCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     CptDescription = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
@@ -23,11 +23,15 @@ namespace Infrastructure.Migrations
                     CvxDescription = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     Comments = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     LastUpdatedDate = table.Column<DateOnly>(type: "date", nullable: false),
-                    CptCodeId = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true)
+                    CptCodeId = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CdcCvxCpts", x => x.CdcCvxCptId);
+                    table.PrimaryKey("PK_CdcCvxCpts", x => x.Id);
                     table.UniqueConstraint("IX_cvx_cpt", x => new { x.CdcCvxCode, x.CptCode });
                 });
 
@@ -35,7 +39,7 @@ namespace Infrastructure.Migrations
                 name: "CdcCvxes",
                 columns: table => new
                 {
-                    CdcCvxId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CdcCvxCode = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
                     ShortDescription = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
@@ -43,11 +47,15 @@ namespace Infrastructure.Migrations
                     Notes = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     VaccineStatus = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
                     NonVaccine = table.Column<bool>(type: "bit", nullable: false),
-                    LastUpdatedDate = table.Column<DateOnly>(type: "date", nullable: false)
+                    LastUpdatedDate = table.Column<DateOnly>(type: "date", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CdcCvxes", x => x.CdcCvxId);
+                    table.PrimaryKey("PK_CdcCvxes", x => x.Id);
                     table.UniqueConstraint("IX_cvx", x => x.CdcCvxCode);
                 });
 
@@ -55,7 +63,7 @@ namespace Infrastructure.Migrations
                 name: "CdcCvxManufacturers",
                 columns: table => new
                 {
-                    CdcCvxManufacturerId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CdcProductName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     ShortDescription = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
@@ -64,53 +72,65 @@ namespace Infrastructure.Migrations
                     MvxCode = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: true),
                     MvxStatus = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
                     ProductNameStatus = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
-                    LastUpdatedDate = table.Column<DateOnly>(type: "date", nullable: false)
+                    LastUpdatedDate = table.Column<DateOnly>(type: "date", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CdcCvxManufacturers", x => x.CdcCvxManufacturerId);
+                    table.PrimaryKey("PK_CdcCvxManufacturers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "CdcCvxVaccineGroups",
                 columns: table => new
                 {
-                    CdcCvxVaccineGroupId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ShortDescription = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     CdcCvxCode = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
                     VaccineStatus = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
                     VaccineGroupName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    VaccineGroupCvxCode = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false)
+                    VaccineGroupCvxCode = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CdcCvxVaccineGroups", x => x.CdcCvxVaccineGroupId);
+                    table.PrimaryKey("PK_CdcCvxVaccineGroups", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "CdcCvxVises",
                 columns: table => new
                 {
-                    CdcVisId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CdcCvxCode = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
                     CvxVaccineDescription = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     VisFullyEncodedTextString = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     VisDocumentName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     VisEditionDate = table.Column<DateOnly>(type: "date", nullable: false),
-                    VisEditionStatus = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true)
+                    VisEditionStatus = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CdcCvxVises", x => x.CdcVisId);
+                    table.PrimaryKey("PK_CdcCvxVises", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "CdcLookupNdcs",
                 columns: table => new
                 {
-                    CdcLookupNdc10Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SaleNdc11 = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
                     SaleNdc10 = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
@@ -142,29 +162,37 @@ namespace Infrastructure.Migrations
                     CptCode = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
                     CptShortDescription = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     CptLongDescription = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
-                    CptStatus = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true)
+                    CptStatus = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CdcLookupNdcs", x => x.CdcLookupNdc10Id);
+                    table.PrimaryKey("PK_CdcLookupNdcs", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "CdcLoopupBarcodes",
                 columns: table => new
                 {
-                    CdcBarcodeLookupId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     VisDocumentTypeDescription = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     EditionDate = table.Column<DateOnly>(type: "date", nullable: false),
                     VisFullyEncodedString = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     VisGdtiCode = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     EditionStatus = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
-                    LateUpdatedDate = table.Column<DateOnly>(type: "date", nullable: false)
+                    LateUpdatedDate = table.Column<DateOnly>(type: "date", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CdcLoopupBarcodes", x => x.CdcBarcodeLookupId);
+                    table.PrimaryKey("PK_CdcLoopupBarcodes", x => x.Id);
                     table.UniqueConstraint("IX_encodedString", x => x.VisFullyEncodedString);
                 });
 
@@ -172,17 +200,21 @@ namespace Infrastructure.Migrations
                 name: "CdcManufacturers",
                 columns: table => new
                 {
-                    ManufacturerId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     MvxCode = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
                     ManufacturerName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     ManufacturerNotes = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     ManufacturerStatus = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
-                    LastUpdatedDate = table.Column<DateOnly>(type: "date", nullable: false)
+                    LastUpdatedDate = table.Column<DateOnly>(type: "date", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CdcManufacturers", x => x.ManufacturerId);
+                    table.PrimaryKey("PK_CdcManufacturers", x => x.Id);
                     table.UniqueConstraint("AK_CdcManufacturers_MvxCode", x => x.MvxCode);
                 });
 

@@ -6,8 +6,8 @@ namespace Infrastructure.Repository.Cdc;
 
 public class CdcCvxVisRepository : ICdcCvxVis
 {
-    private readonly InventoryDbContext _context;
-    public CdcCvxVisRepository(InventoryDbContext context)
+    private readonly YojanaContext _context;
+    public CdcCvxVisRepository(YojanaContext context)
     {
         _context = context;
     }

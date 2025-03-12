@@ -7,17 +7,17 @@ namespace Domain.Models.Cdc;
 public class CdcCvx : AuditableEntity, IEquatable<CdcCvx>
 {
     [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int CdcCvxId { get; set; }
+    public int Id { get; set; }
 
-    [MaxLength(5)]
+    [StringLength(5)]
     public required string CdcCvxCode { get; set; }
-    [MaxLength(100)]
+    [StringLength(100)]
     public required string ShortDescription { get; set; }
-    [MaxLength(500)]
+    [StringLength(500)]
     public required string FullVaccineName { get; set; }
-    [MaxLength(500)]
+    [StringLength(500)]
     public string? Notes { get; set; }
-    [MaxLength(15)]
+    [StringLength(15)]
     public required string VaccineStatus { get; set; }
     public bool NonVaccine { get; set; }
     public DateOnly LastUpdatedDate { get; set; }

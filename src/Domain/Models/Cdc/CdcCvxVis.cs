@@ -8,18 +8,18 @@ public class CdcCvxVis : AuditableEntity, IEquatable<CdcCvxVis>
 {
 
     [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int CdcVisId { get; set; }
+    public int Id { get; set; }
 
-    [MaxLength(5)]
+    [StringLength(5)]
     public required string CdcCvxCode { get; set; }
-    [MaxLength(100)]
+    [StringLength(100)]
     public required string CvxVaccineDescription { get; set; }
-    [MaxLength(30)]
+    [StringLength(30)]
     public required string VisFullyEncodedTextString { get; set; }
-    [MaxLength(100)]
+    [StringLength(100)]
     public required string VisDocumentName { get; set; }
     public DateOnly VisEditionDate { get; set; }
-    [MaxLength(15)]
+    [StringLength(15)]
     public string? VisEditionStatus { get; set; }
 
 

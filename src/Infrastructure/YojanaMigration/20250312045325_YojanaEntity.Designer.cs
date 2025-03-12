@@ -4,16 +4,19 @@ using Infrastructure.AppContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Infrastructure.Migrations
+namespace Infrastructure.YojanaMigration
 {
-    [DbContext(typeof(InventoryDbContext))]
-    partial class InventoryDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(YojanaContext))]
+    [Migration("20250312045325_YojanaEntity")]
+    partial class YojanaEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,11 +27,11 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Models.Cdc.CdcCvx", b =>
                 {
-                    b.Property<int>("CdcCvxId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CdcCvxId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CdcCvxCode")
                         .IsRequired()
@@ -38,7 +41,7 @@ namespace Infrastructure.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("FullVaccineName")
@@ -52,7 +55,7 @@ namespace Infrastructure.Migrations
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("ModifiedDate")
+                    b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("NonVaccine")
@@ -72,7 +75,7 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
 
-                    b.HasKey("CdcCvxId");
+                    b.HasKey("Id");
 
                     b.HasAlternateKey("CdcCvxCode")
                         .HasName("IX_cvx");
@@ -82,11 +85,11 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Models.Cdc.CdcCvxCpt", b =>
                 {
-                    b.Property<int>("CdcCvxCptId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CdcCvxCptId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CdcCvxCode")
                         .IsRequired()
@@ -114,7 +117,7 @@ namespace Infrastructure.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CvxDescription")
@@ -128,10 +131,10 @@ namespace Infrastructure.Migrations
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("ModifiedDate")
+                    b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("CdcCvxCptId");
+                    b.HasKey("Id");
 
                     b.HasAlternateKey("CdcCvxCode", "CptCode")
                         .HasName("IX_cvx_cpt");
@@ -141,11 +144,11 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Models.Cdc.CdcCvxManufacturer", b =>
                 {
-                    b.Property<int>("CdcCvxManufacturerId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CdcCvxManufacturerId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CdcCvxCode")
                         .IsRequired()
@@ -160,7 +163,7 @@ namespace Infrastructure.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<DateOnly>("LastUpdatedDate")
@@ -173,7 +176,7 @@ namespace Infrastructure.Migrations
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("ModifiedDate")
+                    b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("MvxCode")
@@ -195,7 +198,7 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.HasKey("CdcCvxManufacturerId");
+                    b.HasKey("Id");
 
                     b.HasIndex("CdcProductName", "MvxCode", "CdcCvxCode")
                         .IsUnique()
@@ -207,11 +210,11 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Models.Cdc.CdcCvxVaccineGroup", b =>
                 {
-                    b.Property<int>("CdcCvxVaccineGroupId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CdcCvxVaccineGroupId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CdcCvxCode")
                         .IsRequired()
@@ -221,13 +224,13 @@ namespace Infrastructure.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("ModifiedDate")
+                    b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ShortDescription")
@@ -250,7 +253,7 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
 
-                    b.HasKey("CdcCvxVaccineGroupId");
+                    b.HasKey("Id");
 
                     b.HasIndex("CdcCvxCode", "VaccineGroupCvxCode")
                         .IsUnique()
@@ -261,11 +264,11 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Models.Cdc.CdcCvxVis", b =>
                 {
-                    b.Property<int>("CdcVisId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CdcVisId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CdcCvxCode")
                         .IsRequired()
@@ -275,7 +278,7 @@ namespace Infrastructure.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CvxVaccineDescription")
@@ -286,7 +289,7 @@ namespace Infrastructure.Migrations
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("ModifiedDate")
+                    b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("VisDocumentName")
@@ -306,7 +309,7 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
-                    b.HasKey("CdcVisId");
+                    b.HasKey("Id");
 
                     b.HasIndex("CdcCvxCode", "VisDocumentName", "VisEditionDate")
                         .IsUnique()
@@ -317,16 +320,16 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Models.Cdc.CdcLookupBarcode", b =>
                 {
-                    b.Property<int>("CdcBarcodeLookupId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CdcBarcodeLookupId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<DateOnly>("EditionDate")
@@ -343,7 +346,7 @@ namespace Infrastructure.Migrations
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("ModifiedDate")
+                    b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("VisDocumentTypeDescription")
@@ -361,7 +364,7 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.HasKey("CdcBarcodeLookupId");
+                    b.HasKey("Id");
 
                     b.HasAlternateKey("VisFullyEncodedString")
                         .HasName("IX_encodedString");
@@ -371,11 +374,11 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Models.Cdc.CdcLookupNdc", b =>
                 {
-                    b.Property<int>("CdcLookupNdc10Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CdcLookupNdc10Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CdcCvxCode")
                         .IsRequired()
@@ -401,7 +404,7 @@ namespace Infrastructure.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<DateOnly?>("CvxEffectiveDate")
@@ -433,7 +436,7 @@ namespace Infrastructure.Migrations
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("ModifiedDate")
+                    b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("MvxCode")
@@ -518,7 +521,7 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.HasKey("CdcLookupNdc10Id");
+                    b.HasKey("Id");
 
                     b.HasIndex("CdcCvxCode")
                         .HasDatabaseName("IX_cvx");
@@ -551,16 +554,16 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Models.Cdc.CdcManufacturer", b =>
                 {
-                    b.Property<int>("ManufacturerId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ManufacturerId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<DateOnly>("LastUpdatedDate")
@@ -583,7 +586,7 @@ namespace Infrastructure.Migrations
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("ModifiedDate")
+                    b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("MvxCode")
@@ -591,7 +594,7 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(5)
                         .HasColumnType("nvarchar(5)");
 
-                    b.HasKey("ManufacturerId");
+                    b.HasKey("Id");
 
                     b.HasAlternateKey("MvxCode");
 
