@@ -363,7 +363,7 @@ namespace Infrastructure.YojanaMigration
 
                     b.HasKey("Id");
 
-                    b.HasAlternateKey("VisFullyEncodedString")
+                    b.HasAlternateKey("VisFullyEncodedString", "EditionStatus")
                         .HasName("IX_encodedString");
 
                     b.ToTable("CdcLoopupBarcodes");

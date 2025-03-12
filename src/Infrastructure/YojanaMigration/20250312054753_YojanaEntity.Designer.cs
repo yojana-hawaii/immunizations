@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.YojanaMigration
 {
     [DbContext(typeof(YojanaContext))]
-    [Migration("20250312045325_YojanaEntity")]
+    [Migration("20250312054753_YojanaEntity")]
     partial class YojanaEntity
     {
         /// <inheritdoc />
@@ -366,7 +366,7 @@ namespace Infrastructure.YojanaMigration
 
                     b.HasKey("Id");
 
-                    b.HasAlternateKey("VisFullyEncodedString")
+                    b.HasAlternateKey("VisFullyEncodedString", "EditionStatus")
                         .HasName("IX_encodedString");
 
                     b.ToTable("CdcLoopupBarcodes");

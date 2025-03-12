@@ -193,7 +193,7 @@ namespace Infrastructure.YojanaMigration
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CdcLoopupBarcodes", x => x.Id);
-                    table.UniqueConstraint("IX_encodedString", x => x.VisFullyEncodedString);
+                    table.UniqueConstraint("IX_encodedString", x => new { x.VisFullyEncodedString, x.EditionStatus });
                 });
 
             migrationBuilder.CreateTable(

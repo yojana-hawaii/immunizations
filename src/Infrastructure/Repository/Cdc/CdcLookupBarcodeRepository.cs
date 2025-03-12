@@ -31,7 +31,7 @@ public class CdcLookupBarcodeRepository : ICdcLookupBarcode
                     .CompareLists(
                         _barcode,
                         fetchedBarcode,
-                        keySelector: c => c.VisFullyEncodedString,
+                        keySelector: c => (c.VisFullyEncodedString, c.EditionStatus),
                         propertyComparer: (oldItem, newItem) => CdcLookupBarcode.CdcFetchComparer(oldItem, newItem)
                     );
 

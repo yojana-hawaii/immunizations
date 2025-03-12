@@ -7,7 +7,7 @@ internal class CdcLookupBarcodeConfiguration : IEntityTypeConfiguration<CdcLooku
 {
     public void Configure(EntityTypeBuilder<CdcLookupBarcode> builder)
     {
-        builder.HasAlternateKey(c => c.VisFullyEncodedString).HasName("IX_encodedString");
+        builder.HasAlternateKey(c => new {c.VisFullyEncodedString, c.EditionStatus }).HasName("IX_encodedString");
 
     }
 }
