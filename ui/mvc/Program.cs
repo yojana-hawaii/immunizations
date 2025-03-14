@@ -6,12 +6,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<InventoryDbContext>(
+builder.Services.AddDbContext<TenantContext>(
         options => options.UseSqlServer(
-            builder.Configuration.GetConnectionString("localdb")
+            builder.Configuration.GetConnectionString("Tenant")
             )
     );
 
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 var app = builder.Build();
 
@@ -33,5 +34,12 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+//to prepare the database and seed data. 
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    TenantInitializer.Initialize(services, true);
+}
 
 app.Run();
