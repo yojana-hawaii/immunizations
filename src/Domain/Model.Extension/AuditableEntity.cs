@@ -5,9 +5,11 @@ namespace Domain.Model.Extension;
 public abstract class AuditableEntity : IAuditable
 {
     [ScaffoldColumn(false)] //don't bother with in user interface scaffolding
+    [StringLength(100)]
     public string? CreatedBy { get; set; }
 
     [ScaffoldColumn(false)]
+    [StringLength(100)]
     public string? ModifiedBy { get; set; }
 
     [ScaffoldColumn(false)]
