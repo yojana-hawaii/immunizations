@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics;
 
-namespace Infrastructure.AppContext;
+namespace Infrastructure.AppContext.Tenant;
 
 public static class TenantInitializer
 {
@@ -54,7 +54,7 @@ public static class TenantInitializer
                 {
                     SeedVaccinePrograms(_context);
                 }
-                if (!_context.vaccineSources.Any())
+                if (!_context.VaccineSources.Any())
                 {
                     SeedVaccineSource(_context);
                 }
@@ -101,9 +101,9 @@ public static class TenantInitializer
     {
         DateOnly startDate = new DateOnly(1980, 1, 1);
         DateOnly endDate = new DateOnly(2024, 12, 31);
-        var range = (endDate.DayNumber - startDate.DayNumber);
+        var range = endDate.DayNumber - startDate.DayNumber;
 
-        String str = "abcdefghijklmnofqrstuvwxyz1234567890";
+        string str = "abcdefghijklmnofqrstuvwxyz1234567890";
 
         var totalLot = 100;
         var lotSize = 8;
@@ -183,7 +183,7 @@ public static class TenantInitializer
             new VaccineSource { VaccineSourceName = "Private", VaccineSourceDescription = "Purchased" },
             new VaccineSource { VaccineSourceName = "Donated", VaccineSourceDescription = "donated" }
         };
-        context.vaccineSources.AddRange(sources);
+        context.VaccineSources.AddRange(sources);
         try
         {
             context.SaveChanges();

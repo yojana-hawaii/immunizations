@@ -1,5 +1,7 @@
 ﻿
 
+using Domain.Models.Cdc;
+
 namespace Application.Interface.Cdc;
 
 public interface ICdcCvx

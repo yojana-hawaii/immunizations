@@ -1,6 +1,6 @@
 using Application.Interface.Cdc;
 using Asp.Versioning;
-using Infrastructure.AppContext;
+using Infrastructure.AppContext.Yojana;
 using Infrastructure.Repository.Cdc;
 using Microsoft.EntityFrameworkCore;
 

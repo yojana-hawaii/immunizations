@@ -1,4 +1,5 @@
-﻿using Domain.Utility.CollectionHelper;
+﻿using Domain.Models.Cdc;
+using Domain.Utility.CollectionHelper;
 using System.Numerics;
 
 namespace nunittest;

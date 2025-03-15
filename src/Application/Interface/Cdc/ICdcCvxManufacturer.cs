@@ -1,4 +1,6 @@
-﻿namespace Application.Interface.Cdc
+﻿using Domain.Models.Cdc;
+
+namespace Application.Interface.Cdc
 {
     public interface ICdcCvxManufacturer
     {

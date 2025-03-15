@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
-namespace Infrastructure.AppContext;
+namespace Infrastructure.AppContext.Tenant;
 
 public class TenantContext : DbContext
 {
@@ -35,7 +35,7 @@ public class TenantContext : DbContext
     public DbSet<VaccineBrand> VaccineBrands { get; set; }
     public DbSet<VaccineGroup> VaccineGroups { get; set; }
     public DbSet<VaccineProgram> VaccinePrograms { get; set; }
-    public DbSet<VaccineSource> vaccineSources { get; set; }
+    public DbSet<VaccineSource> VaccineSources { get; set; }
 
 
 

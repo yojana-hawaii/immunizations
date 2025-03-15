@@ -1,6 +1,8 @@
 ﻿
+using Application.Interface.Cdc;
+using Domain.Models.Cdc;
 using Domain.Utility.CollectionHelper;
-using Infrastructure.AppContext;
+using Infrastructure.AppContext.Yojana;
 
 namespace Infrastructure.Repository.Cdc;
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
+using Domain.Models.Cdc;
 
 namespace Infrastructure.FluentApiConfig.Cdc;
 

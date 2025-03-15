@@ -1,9 +1,10 @@
 ﻿using Domain.Model.Extension;
+using Domain.Models.Cdc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
-namespace Infrastructure.AppContext;
+namespace Infrastructure.AppContext.Yojana;
 
 public class YojanaContext : DbContext
 {
