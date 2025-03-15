@@ -32,7 +32,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="SqlScript\" />
+    <Folder Include="DatabaseDesign\Centricity\" />
+    <Folder Include="DatabaseDesign\im_yuh_nuh_zey_shuh_n\" />
   </ItemGroup>
 
 </Project>
