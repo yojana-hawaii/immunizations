@@ -36,13 +36,40 @@ public class TenantContext : DbContext
     public DbSet<VaccineGroup> VaccineGroups { get; set; }
     public DbSet<VaccineProgram> VaccinePrograms { get; set; }
     public DbSet<VaccineSource> VaccineSources { get; set; }
+    public DbSet<VaccineLocation> VaccineLocations { get; set; }
 
+    public DbSet<VaccineCvxCode> VaccineCveCodes { get; set; }
+    public DbSet<VaccineGroup> VaccineGroups { get; set; }
+    public DbSet<VaccineBrand> VaccineBrands { get; set; }
 
+    public DbSet<VaccineLotNumber> VaccineLotNumbers { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        //apply all fluent api configuratio to entity using reflection
-        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        //apply all fluent api configuratio to entity using reflection - Relection takes all classes with IEntityTypeConfiguration including those not in this context
+        //modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        
+        //dependent on organization but mostly similar
+        modelBuilder.Entity<VaccineProgram>();
+        modelBuilder.Entity<VaccineSource>();
+
+        //org specific 
+        modelBuilder.Entity<VaccineLocation>();
+
+        //api call to yojana from mvc > pick and choose what to use
+        modelBuilder.Entity<VaccineCvxCode>();
+        modelBuilder.Entity<VaccineBrand>();
+        modelBuilder.Entity<VaccineGroup>();
+
+        //different for each org and dependent on vaccines
+        modelBuilder.Entity<VaccineLotNumber>();
+
+        modelBuilder.ApplyConfiguration(new VaccineProgramConfiguration());
+        modelBuilder.ApplyConfiguration(new VaccineSourceConfiguration());
+        modelBuilder.ApplyConfiguration(new VaccineLocationConfiguration());
+        modelBuilder.ApplyConfiguration(new VaccineCvxCodeConfiguration());
+
+        modelBuilder.HasDefaultSchema("dbo");
     }
 
 
