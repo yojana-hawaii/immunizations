@@ -1,8 +1,8 @@
 ﻿using Domain.Model.Extension;
 using Domain.Models.Tenant;
+using Infrastructure.FluentApiConfig.Tenant;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection;
 
 namespace Infrastructure.AppContext.Tenant;
 
@@ -30,10 +30,6 @@ public class TenantContext : DbContext
 
     public TenantContext(DbContextOptions<TenantContext> options) : base(options) { }
 
-    public DbSet<VaccineLocation> VaccineLocations { get; set; }
-    public DbSet<VaccineLotNumber> VaccineLotNumbers { get; set; }
-    public DbSet<VaccineBrand> VaccineBrands { get; set; }
-    public DbSet<VaccineGroup> VaccineGroups { get; set; }
     public DbSet<VaccineProgram> VaccinePrograms { get; set; }
     public DbSet<VaccineSource> VaccineSources { get; set; }
     public DbSet<VaccineLocation> VaccineLocations { get; set; }
