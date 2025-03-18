@@ -1,5 +1,6 @@
 ﻿using Domain.Model.Extension;
 using Domain.Models.Cdc;
+using Infrastructure.FluentApiConfig.Cdc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
@@ -40,8 +41,28 @@ public class YojanaContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        //apply all fluent api configuratio to entity using reflection
-        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        modelBuilder.Entity<CdcCvxCode>();
+        modelBuilder.Entity<CdcCvxCpt>();
+        modelBuilder.Entity<CdcCvxManufacturer>();
+        modelBuilder.Entity<CdcCvxVaccineGroup>();
+        modelBuilder.Entity<CdcCvxVis>();
+        modelBuilder.Entity<CdcLookupBarcode>();
+        modelBuilder.Entity<CdcLookupNdc>();
+        modelBuilder.Entity<CdcManufacturer>();
+
+
+
+        modelBuilder.ApplyConfiguration(new CdcCvxCodeConfiguration());
+        modelBuilder.ApplyConfiguration(new CdcCvxCptConfiguration());
+        modelBuilder.ApplyConfiguration(new CdcCvxManufacturerConfiguration());
+        modelBuilder.ApplyConfiguration(new CdcCvxVaccineGroupConfiguration());
+        modelBuilder.ApplyConfiguration(new CdcCvxVisConfiguration());
+        modelBuilder.ApplyConfiguration(new CdcLookupBarcodeConfiguration());
+        modelBuilder.ApplyConfiguration(new CdcLookupNdcConfiguration());
+        modelBuilder.ApplyConfiguration(new CdcManufacturerConfiguration());
+
+        modelBuilder.HasDefaultSchema("dbo");
+
     }
 
 

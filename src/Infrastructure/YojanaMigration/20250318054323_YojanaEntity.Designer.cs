@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.YojanaMigration
 {
     [DbContext(typeof(YojanaContext))]
-    [Migration("20250318051658_YojanaEntity")]
+    [Migration("20250318054323_YojanaEntity")]
     partial class YojanaEntity
     {
         /// <inheritdoc />
@@ -20,6 +20,7 @@ namespace Infrastructure.YojanaMigration
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasDefaultSchema("dbo")
                 .HasAnnotation("ProductVersion", "9.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
@@ -82,7 +83,7 @@ namespace Infrastructure.YojanaMigration
                     b.HasAlternateKey("CvxCode")
                         .HasName("IX_cvx");
 
-                    b.ToTable("CdcCvxCodes");
+                    b.ToTable("CdcCvxCodes", "dbo");
                 });
 
             modelBuilder.Entity("Domain.Models.Cdc.CdcCvxCpt", b =>
@@ -143,7 +144,7 @@ namespace Infrastructure.YojanaMigration
                     b.HasAlternateKey("CdcCvxCode", "CptCode")
                         .HasName("IX_cvx_cpt");
 
-                    b.ToTable("CdcCvxCpts");
+                    b.ToTable("CdcCvxCpts", "dbo");
                 });
 
             modelBuilder.Entity("Domain.Models.Cdc.CdcCvxManufacturer", b =>
@@ -211,7 +212,7 @@ namespace Infrastructure.YojanaMigration
                         .HasDatabaseName("IX_name_mvx_cvx")
                         .HasFilter("[MvxCode] IS NOT NULL");
 
-                    b.ToTable("CdcCvxManufacturers");
+                    b.ToTable("CdcCvxManufacturers", "dbo");
                 });
 
             modelBuilder.Entity("Domain.Models.Cdc.CdcCvxVaccineGroup", b =>
@@ -267,7 +268,7 @@ namespace Infrastructure.YojanaMigration
                         .IsUnique()
                         .HasDatabaseName("IX_cvx_groupcvx");
 
-                    b.ToTable("CdcCvxVaccineGroups");
+                    b.ToTable("CdcCvxVaccineGroups", "dbo");
                 });
 
             modelBuilder.Entity("Domain.Models.Cdc.CdcCvxVis", b =>
@@ -325,7 +326,7 @@ namespace Infrastructure.YojanaMigration
                         .IsUnique()
                         .HasDatabaseName("IX_cvx_visname_visdate");
 
-                    b.ToTable("CdcCvxVises");
+                    b.ToTable("CdcCvxVises", "dbo");
                 });
 
             modelBuilder.Entity("Domain.Models.Cdc.CdcLookupBarcode", b =>
@@ -381,7 +382,7 @@ namespace Infrastructure.YojanaMigration
                     b.HasAlternateKey("VisFullyEncodedString", "EditionStatus")
                         .HasName("IX_encodedString");
 
-                    b.ToTable("CdcLookupBarcodes");
+                    b.ToTable("CdcLookupBarcodes", "dbo");
                 });
 
             modelBuilder.Entity("Domain.Models.Cdc.CdcLookupNdc", b =>
@@ -563,7 +564,7 @@ namespace Infrastructure.YojanaMigration
                         .HasDatabaseName("IX_ndc11_ndc10_cvx_mvx_cpt")
                         .HasFilter("[SaleNdc10] IS NOT NULL AND [CptCode] IS NOT NULL");
 
-                    b.ToTable("CdcLookupNdcs");
+                    b.ToTable("CdcLookupNdcs", "dbo");
                 });
 
             modelBuilder.Entity("Domain.Models.Cdc.CdcManufacturer", b =>
@@ -614,248 +615,7 @@ namespace Infrastructure.YojanaMigration
 
                     b.HasAlternateKey("MvxCode");
 
-                    b.ToTable("CdcManufacturers");
-                });
-
-            modelBuilder.Entity("Domain.Models.Tenant.VaccineCvxCode", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("CreatedBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CvxCode")
-                        .IsRequired()
-                        .HasMaxLength(4)
-                        .HasColumnType("nvarchar(4)");
-
-                    b.Property<string>("FullVaccineName")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<DateOnly>("LastUpdatedDate")
-                        .HasColumnType("date");
-
-                    b.Property<string>("ModifiedBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime?>("ModifiedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("NonVaccine")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("ShortDescripton")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<int>("VaccineGroupId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("VaccineStatus")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
-
-                    b.HasKey("Id");
-
-                    b.HasAlternateKey("CvxCode");
-
-                    b.HasIndex("VaccineGroupId");
-
-                    b.ToTable("VaccineCvxCode");
-                });
-
-            modelBuilder.Entity("Domain.Models.Tenant.VaccineGroup", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("CreatedBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ModifiedBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime?>("ModifiedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("VaccineGroupCvxCode")
-                        .IsRequired()
-                        .HasMaxLength(5)
-                        .HasColumnType("nvarchar(5)");
-
-                    b.Property<string>("VaccineGroupDescription")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<string>("VaccineGroupName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateOnly>("VisDate")
-                        .HasColumnType("date");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("VaccineGroup");
-                });
-
-            modelBuilder.Entity("Domain.Models.Tenant.VaccineLocation", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ComputedSubLocationForUniqueness")
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("nvarchar(450)")
-                        .HasComputedColumnSql("isnull(SubLocation, 'NULL-MARKER')");
-
-                    b.Property<string>("CreatedBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("LocationName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("ModifiedBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime?>("ModifiedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("SubLocation")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LocationName", "ComputedSubLocationForUniqueness")
-                        .IsUnique()
-                        .HasDatabaseName("ix_location");
-
-                    b.ToTable("VaccineLocation");
-                });
-
-            modelBuilder.Entity("Domain.Models.Tenant.VaccineProgram", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("CreatedBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ModifiedBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime?>("ModifiedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("VaccineProgramDescription")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("VaccineProgramName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("VaccineProgramName")
-                        .IsUnique()
-                        .HasDatabaseName("ix_vaccine_program");
-
-                    b.ToTable("VaccineProgram");
-                });
-
-            modelBuilder.Entity("Domain.Models.Tenant.VaccineSource", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("CreatedBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ModifiedBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime?>("ModifiedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("VaccineSourceDescription")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("VaccineSourceName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("VaccineSourceName")
-                        .IsUnique()
-                        .HasDatabaseName("ix_vaccine_source");
-
-                    b.ToTable("VaccineSource");
-                });
-
-            modelBuilder.Entity("Domain.Models.Tenant.VaccineCvxCode", b =>
-                {
-                    b.HasOne("Domain.Models.Tenant.VaccineGroup", "VaccineGroup")
-                        .WithMany()
-                        .HasForeignKey("VaccineGroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("VaccineGroup");
+                    b.ToTable("CdcManufacturers", "dbo");
                 });
 #pragma warning restore 612, 618
         }

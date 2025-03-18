@@ -11,8 +11,12 @@ namespace Infrastructure.YojanaMigration
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "dbo");
+
             migrationBuilder.CreateTable(
                 name: "CdcCvxCodes",
+                schema: "dbo",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -37,6 +41,7 @@ namespace Infrastructure.YojanaMigration
 
             migrationBuilder.CreateTable(
                 name: "CdcCvxCpts",
+                schema: "dbo",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -61,6 +66,7 @@ namespace Infrastructure.YojanaMigration
 
             migrationBuilder.CreateTable(
                 name: "CdcCvxManufacturers",
+                schema: "dbo",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -85,6 +91,7 @@ namespace Infrastructure.YojanaMigration
 
             migrationBuilder.CreateTable(
                 name: "CdcCvxVaccineGroups",
+                schema: "dbo",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -106,6 +113,7 @@ namespace Infrastructure.YojanaMigration
 
             migrationBuilder.CreateTable(
                 name: "CdcCvxVises",
+                schema: "dbo",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -128,6 +136,7 @@ namespace Infrastructure.YojanaMigration
 
             migrationBuilder.CreateTable(
                 name: "CdcLookupBarcodes",
+                schema: "dbo",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -151,6 +160,7 @@ namespace Infrastructure.YojanaMigration
 
             migrationBuilder.CreateTable(
                 name: "CdcLookupNdcs",
+                schema: "dbo",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -198,6 +208,7 @@ namespace Infrastructure.YojanaMigration
 
             migrationBuilder.CreateTable(
                 name: "CdcManufacturers",
+                schema: "dbo",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -218,113 +229,9 @@ namespace Infrastructure.YojanaMigration
                     table.UniqueConstraint("AK_CdcManufacturers_MvxCode", x => x.MvxCode);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "VaccineGroup",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    VaccineGroupCvxCode = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
-                    VaccineGroupName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    VaccineGroupDescription = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
-                    VisDate = table.Column<DateOnly>(type: "date", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    ModifiedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_VaccineGroup", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "VaccineLocation",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    LocationName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    SubLocation = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    ComputedSubLocationForUniqueness = table.Column<string>(type: "nvarchar(450)", nullable: false, computedColumnSql: "isnull(SubLocation, 'NULL-MARKER')"),
-                    CreatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    ModifiedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_VaccineLocation", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "VaccineProgram",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    VaccineProgramName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    VaccineProgramDescription = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    CreatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    ModifiedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_VaccineProgram", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "VaccineSource",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    VaccineSourceName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    VaccineSourceDescription = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    CreatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    ModifiedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_VaccineSource", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "VaccineCvxCode",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CvxCode = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: false),
-                    ShortDescripton = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    FullVaccineName = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    VaccineStatus = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
-                    NonVaccine = table.Column<bool>(type: "bit", nullable: false),
-                    LastUpdatedDate = table.Column<DateOnly>(type: "date", nullable: false),
-                    VaccineGroupId = table.Column<int>(type: "int", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    ModifiedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_VaccineCvxCode", x => x.Id);
-                    table.UniqueConstraint("AK_VaccineCvxCode_CvxCode", x => x.CvxCode);
-                    table.ForeignKey(
-                        name: "FK_VaccineCvxCode_VaccineGroup_VaccineGroupId",
-                        column: x => x.VaccineGroupId,
-                        principalTable: "VaccineGroup",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_name_mvx_cvx",
+                schema: "dbo",
                 table: "CdcCvxManufacturers",
                 columns: new[] { "CdcProductName", "MvxCode", "CdcCvxCode" },
                 unique: true,
@@ -332,33 +239,39 @@ namespace Infrastructure.YojanaMigration
 
             migrationBuilder.CreateIndex(
                 name: "IX_cvx_groupcvx",
+                schema: "dbo",
                 table: "CdcCvxVaccineGroups",
                 columns: new[] { "CdcCvxCode", "VaccineGroupCvxCode" },
                 unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_cvx_visname_visdate",
+                schema: "dbo",
                 table: "CdcCvxVises",
                 columns: new[] { "CdcCvxCode", "VisDocumentName", "VisEditionDate" },
                 unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_cpt",
+                schema: "dbo",
                 table: "CdcLookupNdcs",
                 column: "CptCode");
 
             migrationBuilder.CreateIndex(
                 name: "IX_cvx",
+                schema: "dbo",
                 table: "CdcLookupNdcs",
                 column: "CdcCvxCode");
 
             migrationBuilder.CreateIndex(
                 name: "IX_mvx",
+                schema: "dbo",
                 table: "CdcLookupNdcs",
                 column: "MvxCode");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ndc11_ndc10_cvx_mvx_cpt",
+                schema: "dbo",
                 table: "CdcLookupNdcs",
                 columns: new[] { "SaleNdc11", "SaleNdc10", "UseNdc11", "UseNdc10", "CdcCvxCode", "MvxCode", "CptCode" },
                 unique: true,
@@ -366,89 +279,63 @@ namespace Infrastructure.YojanaMigration
 
             migrationBuilder.CreateIndex(
                 name: "IX_sale_ndc10",
+                schema: "dbo",
                 table: "CdcLookupNdcs",
                 column: "SaleNdc10");
 
             migrationBuilder.CreateIndex(
                 name: "IX_sale_ndc11",
+                schema: "dbo",
                 table: "CdcLookupNdcs",
                 column: "SaleNdc11");
 
             migrationBuilder.CreateIndex(
                 name: "IX_use_ndc10",
+                schema: "dbo",
                 table: "CdcLookupNdcs",
                 column: "UseNdc10");
 
             migrationBuilder.CreateIndex(
                 name: "IX_use_ndc11",
+                schema: "dbo",
                 table: "CdcLookupNdcs",
                 column: "UseNdc11");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_VaccineCvxCode_VaccineGroupId",
-                table: "VaccineCvxCode",
-                column: "VaccineGroupId");
-
-            migrationBuilder.CreateIndex(
-                name: "ix_location",
-                table: "VaccineLocation",
-                columns: new[] { "LocationName", "ComputedSubLocationForUniqueness" },
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "ix_vaccine_program",
-                table: "VaccineProgram",
-                column: "VaccineProgramName",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "ix_vaccine_source",
-                table: "VaccineSource",
-                column: "VaccineSourceName",
-                unique: true);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CdcCvxCodes");
+                name: "CdcCvxCodes",
+                schema: "dbo");
 
             migrationBuilder.DropTable(
-                name: "CdcCvxCpts");
+                name: "CdcCvxCpts",
+                schema: "dbo");
 
             migrationBuilder.DropTable(
-                name: "CdcCvxManufacturers");
+                name: "CdcCvxManufacturers",
+                schema: "dbo");
 
             migrationBuilder.DropTable(
-                name: "CdcCvxVaccineGroups");
+                name: "CdcCvxVaccineGroups",
+                schema: "dbo");
 
             migrationBuilder.DropTable(
-                name: "CdcCvxVises");
+                name: "CdcCvxVises",
+                schema: "dbo");
 
             migrationBuilder.DropTable(
-                name: "CdcLookupBarcodes");
+                name: "CdcLookupBarcodes",
+                schema: "dbo");
 
             migrationBuilder.DropTable(
-                name: "CdcLookupNdcs");
+                name: "CdcLookupNdcs",
+                schema: "dbo");
 
             migrationBuilder.DropTable(
-                name: "CdcManufacturers");
-
-            migrationBuilder.DropTable(
-                name: "VaccineCvxCode");
-
-            migrationBuilder.DropTable(
-                name: "VaccineLocation");
-
-            migrationBuilder.DropTable(
-                name: "VaccineProgram");
-
-            migrationBuilder.DropTable(
-                name: "VaccineSource");
-
-            migrationBuilder.DropTable(
-                name: "VaccineGroup");
+                name: "CdcManufacturers",
+                schema: "dbo");
         }
     }
 }
