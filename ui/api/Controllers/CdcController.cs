@@ -14,7 +14,7 @@ public class CdcController : ControllerBase
 {
     private readonly IHttpClientFactory _httpClientFactory;
 
-    private readonly ICdcCvx _cdcCvx;
+    private readonly ICdcCvxCode _cdcCvx;
     private readonly ICdcCvxCpt _cdcCvxCpt;
     private readonly ICdcCvxManufacturer _cdcCvxManufacturer;
     private readonly ICdcCvxVaccineGroup _cdcCvxVaccineGroup;
@@ -38,7 +38,7 @@ public class CdcController : ControllerBase
 
 
     public CdcController(IHttpClientFactory httpClientFactory,
-                ICdcCvx cdcCvx, ICdcCvxCpt cdcCvxCpt, ICdcCvxManufacturer cdcCvxManufacturer,
+                ICdcCvxCode cdcCvx, ICdcCvxCpt cdcCvxCpt, ICdcCvxManufacturer cdcCvxManufacturer,
                 ICdcCvxVaccineGroup cdcCvxVaccineGroup, ICdcCvxVis cdcCvxVis, ICdcLookupBarcode cdcLookupBarcode,
                 ICdcLookupNdc cdcLookupNdc, ICdcManufacturer cdcManufacturer)
     {
@@ -217,9 +217,9 @@ public class CdcController : ControllerBase
     private async Task FetchCdcCvxAsync()
     {
         var _data = await DownloadCdcDataAsync(_uri["cdcCvx"]);
-        var _cvx = _data.Select(d => new CdcCvx()
+        var _cvx = _data.Select(d => new CdcCvxCode()
         {
-            CdcCvxCode = d[0],
+            CvxCode = d[0],
             ShortDescription = d[1],
             FullVaccineName = d[2],
             Notes = d[3],

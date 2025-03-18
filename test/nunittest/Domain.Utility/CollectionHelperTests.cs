@@ -10,8 +10,8 @@ public class CollectionHelperTests
     private List<CdcCvxVaccineGroup> _oldvaccineGrp;
     private List<CdcCvxVaccineGroup> _newVaccineGrp;
     private List<CdcCvxVaccineGroup> _emptyList;
-    private List<CdcCvx> _oldCvx;
-    private List<CdcCvx> _newCvx;
+    private List<CdcCvxCode> _oldCvx;
+    private List<CdcCvxCode> _newCvx;
     private List<CdcCvxCpt> _oldCpt;
     private List<CdcCvxCpt> _newCpt;
     private IEnumerable<CdcManufacturer> _oldMfr;
@@ -54,15 +54,15 @@ public class CollectionHelperTests
         };
         _emptyList = new List<CdcCvxVaccineGroup>();
 
-        _oldCvx = new List<CdcCvx>
+        _oldCvx = new List<CdcCvxCode>
         {
-            new CdcCvx { CdcCvxCode = "02", FullVaccineName = "polio", ShortDescription = "OPV", VaccineStatus = "Active", NonVaccine = false, LastUpdatedDate = DateOnly.Parse("2015-02-10")},
-            new CdcCvx { CdcCvxCode = "03", FullVaccineName = "measles", ShortDescription = "MMR", VaccineStatus = "Active", NonVaccine = false, LastUpdatedDate = DateOnly.Parse("2015-05-28")},
+            new CdcCvxCode { CvxCode = "02", FullVaccineName = "polio", ShortDescription = "OPV", VaccineStatus = "Active", NonVaccine = false, LastUpdatedDate = DateOnly.Parse("2015-02-10")},
+            new CdcCvxCode { CvxCode = "03", FullVaccineName = "measles", ShortDescription = "MMR", VaccineStatus = "Active", NonVaccine = false, LastUpdatedDate = DateOnly.Parse("2015-05-28")},
         };
-        _newCvx = new List<CdcCvx>
+        _newCvx = new List<CdcCvxCode>
         {
-            new CdcCvx { CdcCvxCode = "02", FullVaccineName = "polio", ShortDescription = "OPV", VaccineStatus = "Inactive", NonVaccine = false, LastUpdatedDate = DateOnly.Parse("2017-02-10")},
-            new CdcCvx { CdcCvxCode = "107", FullVaccineName = "dipth", ShortDescription = "dtap", VaccineStatus = "Inactive", NonVaccine = false, LastUpdatedDate = DateOnly.Parse("2010-09-30")},
+            new CdcCvxCode { CvxCode = "02", FullVaccineName = "polio", ShortDescription = "OPV", VaccineStatus = "Inactive", NonVaccine = false, LastUpdatedDate = DateOnly.Parse("2017-02-10")},
+            new CdcCvxCode { CvxCode = "107", FullVaccineName = "dipth", ShortDescription = "dtap", VaccineStatus = "Inactive", NonVaccine = false, LastUpdatedDate = DateOnly.Parse("2010-09-30")},
         };
 
         _oldCpt = new List<CdcCvxCpt>
@@ -142,15 +142,15 @@ public class CollectionHelperTests
     [Test]
     public void GetChanges_AllCvxChanges()
     {
-        var changes = CompareCollection<CdcCvx>
+        var changes = CompareCollection<CdcCvxCode>
                         .CompareLists(
                             _oldCvx,
                             _newCvx,
-                            keySelector: k => k.CdcCvxCode,
-                            propertyComparer: (oldItem, newItem) => CdcCvx.CdcFetchComparer(oldItem, newItem)
+                            keySelector: k => k.CvxCode,
+                            propertyComparer: (oldItem, newItem) => CdcCvxCode.CdcFetchComparer(oldItem, newItem)
                         );
         Assert.That(changes.Added, Has.Exactly(1).Items);
-        Assert.That(changes.Added.Any(c => c.CdcCvxCode == "107"));
+        Assert.That(changes.Added.Any(c => c.CvxCode == "107"));
         Assert.That(changes.Removed, Has.Exactly(1).Items);
         Assert.That(changes.Removed.Any(r => r.ShortDescription == "MMR"));
         Assert.That(changes.Unchanged, Has.Exactly(0).Items);

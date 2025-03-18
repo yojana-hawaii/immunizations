@@ -6,7 +6,7 @@ using Infrastructure.AppContext.Yojana;
 
 namespace Infrastructure.Repository.Cdc;
 
-public class CdcCvxRepository : ICdcCvx
+public class CdcCvxRepository : ICdcCvxCode
 {
     private readonly YojanaContext _context;
 
@@ -16,19 +16,19 @@ public class CdcCvxRepository : ICdcCvx
         _context = context;
     }
 
-    public IEnumerable<CdcCvx> GetAll()
+    public IEnumerable<CdcCvxCode> GetAll()
     {
-        return _context.CdcCvxes;
+        return _context.CdcCvxCodes;
     }
 
-    public CdcCvx GetByCvxCode(string cvxCode)
+    public CdcCvxCode GetByCvxCode(string cvxCode)
     {
         if (string.IsNullOrWhiteSpace(cvxCode))
         {
             throw new ArgumentNullException(nameof(cvxCode));
         }
 
-        var _cdcCvx = _context.CdcCvxes.FirstOrDefault(c => c.CdcCvxCode == cvxCode);
+        var _cdcCvx = _context.CdcCvxCodes.FirstOrDefault(c => c.CvxCode == cvxCode);
 
         if (_cdcCvx == null)
         {
@@ -39,14 +39,14 @@ public class CdcCvxRepository : ICdcCvx
     }
 
 
-    public void UpdateFetchedData(IEnumerable<CdcCvx> fetchedCvxes)
+    public void UpdateFetchedData(IEnumerable<CdcCvxCode> fetchedCvxes)
     {
-        IEnumerable<CdcCvx> _cvx = _context.CdcCvxes;
+        IEnumerable<CdcCvxCode> _cvx = _context.CdcCvxCodes;
 
-        var result = CompareCollection<CdcCvx>
+        var result = CompareCollection<CdcCvxCode>
                     .CompareLists(_cvx, fetchedCvxes,
-                        keySelector: c => c.CdcCvxCode,
-                        propertyComparer: (oldItem, newItem) => CdcCvx.CdcFetchComparer(oldItem, newItem)
+                        keySelector: c => c.CvxCode,
+                        propertyComparer: (oldItem, newItem) => CdcCvxCode.CdcFetchComparer(oldItem, newItem)
                     );
 
         _context.AddRangeAsync(result.Added);

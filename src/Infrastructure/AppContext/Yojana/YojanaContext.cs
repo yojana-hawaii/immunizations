@@ -29,13 +29,13 @@ public class YojanaContext : DbContext
     }
     public YojanaContext(DbContextOptions<YojanaContext> options) : base(options) { }
 
-    public DbSet<CdcCvx> CdcCvxes { get; set; }
+    public DbSet<CdcCvxCode> CdcCvxCodes { get; set; }
     public DbSet<CdcCvxCpt> CdcCvxCpts { get; set; }
     public DbSet<CdcCvxManufacturer> CdcCvxManufacturers { get; set; }
     public DbSet<CdcCvxVaccineGroup> CdcCvxVaccineGroups { get; set; }
     public DbSet<CdcCvxVis> CdcCvxVises { get; set; }
     public DbSet<CdcLookupNdc> CdcLookupNdcs { get; set; }
-    public DbSet<CdcLookupBarcode> CdcLoopupBarcodes { get; set; }
+    public DbSet<CdcLookupBarcode> CdcLookupBarcodes { get; set; }
     public DbSet<CdcManufacturer> CdcManufacturers { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

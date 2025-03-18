@@ -4,13 +4,13 @@ using Domain.Model.Extension;
 
 namespace Domain.Models.Cdc;
 
-public class CdcCvx : AuditableEntity, IEquatable<CdcCvx>
+public class CdcCvxCode : AuditableEntity, IEquatable<CdcCvxCode>
 {
     [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
 
     [StringLength(5)]
-    public required string CdcCvxCode { get; set; }
+    public required string CvxCode { get; set; }
     [StringLength(100)]
     public required string ShortDescription { get; set; }
     [StringLength(500)]
@@ -22,19 +22,19 @@ public class CdcCvx : AuditableEntity, IEquatable<CdcCvx>
     public bool NonVaccine { get; set; }
     public DateOnly LastUpdatedDate { get; set; }
 
-    public static bool CdcFetchComparer(CdcCvx item, CdcCvx other)
+    public static bool CdcFetchComparer(CdcCvxCode item, CdcCvxCode other)
     {
         return item.LastUpdatedDate == other.LastUpdatedDate;
     }
 
-    public bool Equals(CdcCvx? other)
+    public bool Equals(CdcCvxCode? other)
     {
         if (other is null) return false;
         if (ReferenceEquals(this, other)) return true;
 
-        return this.CdcCvxCode == other.CdcCvxCode;
+        return this.CvxCode == other.CvxCode;
     }
 
-    public override bool Equals(object? obj) => Equals(obj as CdcCvx);
-    public override int GetHashCode() => (CdcCvxCode).GetHashCode();
+    public override bool Equals(object? obj) => Equals(obj as CdcCvxCode);
+    public override int GetHashCode() => (CvxCode).GetHashCode();
 }

@@ -4,7 +4,7 @@ using Domain.Models.Cdc;
 
 namespace Application.Interface.Cdc;
 
-public interface ICdcCvx
+public interface ICdcCvxCode
 {
     /// <summary>
     /// Use GET to get data from this table
@@ -14,7 +14,7 @@ public interface ICdcCvx
     /// <returns></returns>
     /// 
 
-    IEnumerable<CdcCvx> GetAll();
-    CdcCvx GetByCvxCode(string cvxCode);
-    void UpdateFetchedData(IEnumerable<CdcCvx> fetchedCvx);
+    IEnumerable<CdcCvxCode> GetAll();
+    CdcCvxCode GetByCvxCode(string cvxCode);
+    void UpdateFetchedData(IEnumerable<CdcCvxCode> fetchedCvx);
 }

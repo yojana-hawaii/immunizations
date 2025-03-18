@@ -1,8 +1,14 @@
+
+
 Add-Migration -StartupProject ui\api -Project src\Infrastructure -Context YojanaContext -OutputDir YojanaMigration "YojanaEntity"
 Update-Database -StartupProject ui\api -Project src\Infrastructure -Context YojanaContext 
-Remove-Migration -StartupProject ui\api -Project src\Infrastructure -Context YojanaContext 
 
 
 Add-Migration -StartupProject ui\mvc -Project src\Infrastructure -Context TenantContext -OutputDir TenantMigration "TenantEntity"
 Update-Database -StartupProject ui\mvc -Project src\Infrastructure -Context TenantContext 
+
+
+
+Remove-Migration -StartupProject ui\api -Project src\Infrastructure -Context YojanaContext 
+
 Remove-Migration -StartupProject ui\mvc -Project src\Infrastructure -Context TenantContext 

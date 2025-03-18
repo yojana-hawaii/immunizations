@@ -17,7 +17,7 @@ public class CdcLookupBarcodeRepository : ICdcLookupBarcode
 
     public IEnumerable<CdcLookupBarcode> GetAll()
     {
-        return _context.CdcLoopupBarcodes;
+        return _context.CdcLookupBarcodes;
     }
 
     public CdcLookupBarcode GetByCvxCode(string cvxCode)
@@ -27,7 +27,7 @@ public class CdcLookupBarcodeRepository : ICdcLookupBarcode
 
     public void UpdateFetchedData(IEnumerable<CdcLookupBarcode> fetchedBarcode)
     {
-        IEnumerable<CdcLookupBarcode> _barcode = _context.CdcLoopupBarcodes;
+        IEnumerable<CdcLookupBarcode> _barcode = _context.CdcLookupBarcodes;
 
         var _result = CompareCollection<CdcLookupBarcode>
                     .CompareLists(

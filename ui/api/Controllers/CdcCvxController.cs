@@ -12,9 +12,9 @@ namespace api.Controllers
     [Route("api/v{version:apiVersion}/[Controller]")]
     public class CdcCvxController : ControllerBase
     {
-        private readonly ICdcCvx _cdcCvx;
+        private readonly ICdcCvxCode _cdcCvx;
 
-        public CdcCvxController(ICdcCvx cdcCvx)
+        public CdcCvxController(ICdcCvxCode cdcCvx)
         {
             _cdcCvx = cdcCvx;
         }
